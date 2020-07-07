@@ -9,7 +9,7 @@ Force Tags                              冒烟集-新福建APP     sso-app接口
 *** Variables ***
 &{WEIBO}                                provider=sina_weibo
 ...                                     oid=5800732080
-...                                     nickname="abcdef西坡"
+...                                     nickname="-_abcdef西坡你要"
 &{WECHAT}                               provider=tencent_wechat
 ...                                     oid=o7jOUwwSR2ecmE_wXxsofN7cYbmY
 ...                                     nickname="tester~『测试』"
