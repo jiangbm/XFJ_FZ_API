@@ -30,15 +30,15 @@ Event1
     ...                                 ${siteid}=${SITEID}
     ${time} =                           Time
     ${sign} =                           Sha                 ${etype}        ${member}       ${time}
-    ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign1} =                          Set Variable        ${secretinfo}[sign]
+#    ${secretinfo} =                     sign
+#    ${token} =                          Set Variable        ${secretinfo}[authtoken]
+#    ${time} =                           Set Variable        ${secretinfo}[time]
+#    ${sign1} =                          Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     curVersions         ${CURVERSIONS}
-    Fapi Headers Set                    Content-Type        application/x-www-form-urlencoded
-    ...                                 authtoken           ${token}
-    ...                                 time                ${time}
-    ...                                 sign                ${sign1}
+#    Fapi Headers Set                    Content-Type        application/x-www-form-urlencoded
+#    ...                                 authtoken           ${token}
+#    ...                                 time                ${time}
+#    ...                                 sign                ${sign1}
     ${bodyData} =                       Create Dictionary
     ...                                 eType               ${etype}
     ...                                 member              ${member}
