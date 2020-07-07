@@ -53,7 +53,7 @@ Login By Phone
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 authtoken           ${token}
+    ...                                 token               ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -95,7 +95,7 @@ SSO Oauth Login
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 authtoken           ${token}
+    ...                                 token               ${token}
     ...                                 version             ${VERSION1}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -132,7 +132,7 @@ SSO Modify Api
     ...                                 devid               ${DEVID}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 authtoken           ${token}
+    ...                                 token               ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -164,7 +164,7 @@ SSO Logout Api
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 authtoken           ${token}
+    ...                                 token               ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -194,7 +194,7 @@ SSO Cancel Api
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 authtoken           ${token}
+    ...                                 token               ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -227,7 +227,7 @@ Oauth Bind Phone
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 authtoken           ${token}
+    ...                                 token               ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -260,7 +260,7 @@ Oauth UnBind Phone
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 authtoken           ${token}
+    ...                                 token               ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
