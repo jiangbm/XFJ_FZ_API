@@ -55,7 +55,7 @@ def sign():
     token=auth()
     sign_url=token+secret+str(t)
     s=XFJ_Des.md5(sign_url)
-    l={"authtoken":token,"time":str(t),"sign":s}
+    l={"token":token,"time":str(t),"sign":s}
     return l
 
 print(sign())
