@@ -20,7 +20,7 @@ Force Tags                              冒烟集-新福建APP     sso-app接口
 ...                                     oid=001587
 ...                                     nickname="APPLE001587"
 ${RESULT_QQ}                            用户63681415
-${RESULT_WEIBO}                         abcdef西坡
+${RESULT_WEIBO}                         -_abcdef西坡你要
 ${RESULT_WECHAT}                        tester~『测试』
 ${RESULT_APPLE}                         APPLE001587
 
