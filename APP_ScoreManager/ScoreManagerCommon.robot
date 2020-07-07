@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation                           积分管理模块业务关键字
 Resource                                ../Common/Common.robot
-Resource                                ../App_SSO/Random_Time.robot
+Resource                                ../App_Sso/Random_Time.robot
 Library                                 OperatingSystem
 Library                                 String
 Library                                 Sha1.py
