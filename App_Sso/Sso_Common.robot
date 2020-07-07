@@ -38,7 +38,7 @@ Login By Phone
     ${random} =                         Random
     ${timestamp} =                      Time
     ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[token]
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
     ${time} =                           Set Variable        ${secretinfo}[time]
     ${sign} =                           Set Variable        ${secretinfo}[sign]
     ${secret} =                         Md5                 devid=${devid}&random=${random}&timestamp=${timestamp}&token=${token}&version=${VERSION}
@@ -53,7 +53,7 @@ Login By Phone
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 token               ${token}
+    ...                                 authtoken           ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -73,7 +73,7 @@ SSO Oauth Login
     ${random} =                         Random
     ${timestamp} =                      Time
     ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[token]
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
     ${time} =                           Set Variable        ${secretinfo}[time]
     ${sign} =                           Set Variable        ${secretinfo}[sign]
     ${name} =                           ENCODE              ${nickname}
@@ -95,7 +95,7 @@ SSO Oauth Login
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 token               ${token}
+    ...                                 authtoken           ${token}
     ...                                 version             ${VERSION1}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -114,7 +114,7 @@ SSO Modify Api
     ${random} =                         Random
     ${timestamp} =                      Time
     ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[token]
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
     ${time} =                           Set Variable        ${secretinfo}[time]
     ${sign} =                           Set Variable        ${secretinfo}[sign]
     ${name} =                           ENCODE              ${nickname}
@@ -132,7 +132,7 @@ SSO Modify Api
     ...                                 devid               ${DEVID}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 token               ${token}
+    ...                                 authtoken           ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -164,7 +164,7 @@ SSO Logout Api
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 token               ${token}
+    ...                                 authtoken           ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -180,7 +180,7 @@ SSO Cancel Api
     ${random} =                         Random
     ${timestamp} =                      Time
     ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[token]
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
     ${time} =                           Set Variable        ${secretinfo}[time]
     ${sign} =                           Set Variable        ${secretinfo}[sign]
     ${secret} =                         Md5                 devid=${devid}&random=${random}&timestamp=${timestamp}&token=${token}&version=${VERSION}
@@ -194,7 +194,7 @@ SSO Cancel Api
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 token               ${token}
+    ...                                 authtoken           ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -212,7 +212,7 @@ Oauth Bind Phone
     ${random} =                         Random
     ${timestamp} =                      Time
     ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[token]
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
     ${time} =                           Set Variable        ${secretinfo}[time]
     ${sign} =                           Set Variable        ${secretinfo}[sign]
     ${secret} =                         Md5                 devid=${devid}&random=${random}&timestamp=${timestamp}&token=${token}&version=${VERSION}
@@ -227,7 +227,7 @@ Oauth Bind Phone
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 token               ${token}
+    ...                                 authtoken           ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
@@ -245,7 +245,7 @@ Oauth UnBind Phone
     ${random} =                         Random
     ${timestamp} =                      Time
     ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[token]
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
     ${time} =                           Set Variable        ${secretinfo}[time]
     ${sign} =                           Set Variable        ${secretinfo}[sign]
     ${secret} =                         Md5                 devid=${devid}&random=${random}&timestamp=${timestamp}&token=${token}&version=${VERSION}
@@ -260,7 +260,7 @@ Oauth UnBind Phone
     ...                                 devid               ${devid}
     ...                                 random              ${random}
     ...                                 timestamp           ${timestamp}
-    ...                                 token               ${token}
+    ...                                 authtoken           ${token}
     ...                                 version             ${VERSION}
     ...                                 Content-Type        application/x-www-form-urlencoded
     ...                                 program-params      ${proParams}
