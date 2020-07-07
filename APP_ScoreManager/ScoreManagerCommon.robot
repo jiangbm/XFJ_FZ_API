@@ -18,7 +18,7 @@ ${SCORE_URI}                            /amuc/api/member/score              #获
 ${SCORELIST_URI}                        /amuc/api/member/scoreList          #会员的积分记录
 ${CONVERT_URI}                          /amuc/api/event/convert             #积分扣减
 ${EVENTTYPES_URI}                       /amuc/api/event/eventTypes          #行为类型
-${MEMBER}                               174
+${MEMBER}                               3970732
 ${SITEID}                               1
 
 
