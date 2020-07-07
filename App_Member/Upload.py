@@ -11,7 +11,7 @@ def uploadPortrait(uid):
     url='https://api1.fjdaily.com/app_if/amuc/api/member/uploadPortrait'
     secretinfo = authen.sign()
     headers = secretinfo
-    file_payload={"data":("touxiang.jpg",open("../Pic_Common/member.jpg","rb"),"multipart/form-data")}
+    file_payload={"data":("touxiang.jpg",open("/var/lib/jenkins/workspace/新福建（翔宇）接口自动化脚本定时构建/Pic_Common/member.jpg","rb"),"multipart/form-data")}
     m=MultipartEncoder(file_payload)            #避免把大文件读取到内存中导致内存溢出，所以这里我将上传的文件转化为数据流的形式发送
     headers["Content-Type"]=m.content_type
     print(headers)
