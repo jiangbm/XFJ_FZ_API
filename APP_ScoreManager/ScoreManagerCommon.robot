@@ -6,6 +6,8 @@ Library                                 OperatingSystem
 Library                                 String
 Library                                 Sha1.py
 Library                                 Str.py
+Library                                 ../Secret/XFJ_Des.py
+Library                                 ../Secret/authen.py
 Force Tags                              冒烟集-新福建App         积分管理（孙安）
 ...                                     作者：江宝敏、黄羽、温怡春
 
@@ -28,8 +30,15 @@ Event1
     ...                                 ${siteid}=${SITEID}
     ${time} =                           Time
     ${sign} =                           Sha                 ${etype}        ${member}       ${time}
+    ${secretinfo} =                     sign
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign1} =                          Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     curVersions         ${CURVERSIONS}
     Fapi Headers Set                    Content-Type        application/x-www-form-urlencoded
+    ...                                 authtoken           ${token}
+    ...                                 time                ${time}
+    ...                                 sign                ${sign1}
     ${bodyData} =                       Create Dictionary
     ...                                 eType               ${etype}
     ...                                 member              ${member}
@@ -43,8 +52,16 @@ Event1
 Score
     [Documentation]                     获取会员当前积分
     [Arguments]                         ${id}
+    ${secretinfo} =                     sign
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     id                  ${id}
     ...                                 curVersions         ${CURVERSIONS}
+    Fapi Headers Set
+    ...                                 authtoken           ${token}
+    ...                                 time                ${time}
+    ...                                 sign                ${sign}
     Fapi Get                            ${APPIF_ALIAS}      ${SCORE_URI}
     ${data}                             Fapi Data To Object
     Set Suite Variable                  ${response_data}    ${data}

@@ -8,25 +8,27 @@ Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 
 *** Variables ***
-${ETYPE0}                               启动
+#${ETYPE0}                               启动
 ${ETYPE1}                               安装注册
 ${ETYPE2}                               邀请
 ${ETYPE3}                               点击新闻
 ${ETYPE4}                               分享成功
 ${ETYPE5}                               提交评论
 ${ETYPE6}                               初次快速登录
-${ETYPE7}                               初次绑定手机号
-${ETYPE8}                               连续7天登录
-${ETYPE9}                               启动
+${ETYPE7}                               播放视频稿件
+${ETYPE8}                               关注订阅号
+#${ETYPE7}                               初次绑定手机号
+#${ETYPE8}                               连续7天登录
+#${ETYPE9}                               启动
 ${RESULT0}                              计算积分成功
 ${RESULT1}                              计算积分失败,超出积分规则计分次数
 
 *** Keywords ***
 
 *** Test Cases ***
-每日启动APP时获取积分，接口返回计算积分成功
-    Event1                              ${ETYPE0}
-    Should Be Equal As Strings          ${response_data.result[0].msg}          ${RESULT0}
+#每日启动APP时获取积分，接口返回计算积分成功
+#    Event1                              ${ETYPE0}
+#    Should Be Equal As Strings          ${response_data.result[0].msg}          ${RESULT0}
 
 APP首次安装注册成功后获取积分，接口返回计算积分成功
     Event1                              ${ETYPE1}
@@ -59,6 +61,13 @@ APP初次快速登录后获取积分，接口返回计算积分成功
     Event1                              ${ETYPE6}
     Should Be Equal As Strings          ${response_data.result[0].msg}          ${RESULT0}
 
-APP初次绑定手机号后获取积分，接口返回计算积分成功
+APP播放视频后获取积分，接口返回计算积分成功
     Event1                              ${ETYPE7}
     Should Be Equal As Strings          ${response_data.result[0].msg}          ${RESULT0}
+
+APP关注订阅号后获取积分，接口返回计算积分成功
+    Event1                              ${ETYPE8}
+    Should Be Equal As Strings          ${response_data.result[0].msg}          ${RESULT0}
+#APP初次绑定手机号后获取积分，接口返回计算积分成功
+#    Event1                              ${ETYPE7}
+#    Should Be Equal As Strings          ${response_data.result[0].msg}          ${RESULT0}

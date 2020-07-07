@@ -7,7 +7,7 @@ Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 
 *** Variables ***
-${ID0}                                  568
+${ID0}                                  3970732
 ${ID1}                                  qq
 ${RESULT}                               会员信息不存在，请检查参数是否正确
 

@@ -3,7 +3,7 @@ Documentation                           查看会员头像
 Resource                                ../App_Member/MemberCommon.robot
 Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
-Force Tags                              冒烟集-新福建APP     sso-app接口/查看会员头像（孙安）
+Force Tags                              冒烟集-新福建APP     会员接口/查看会员头像（孙安）
 ...                                     作者：江宝敏
 
 *** Variables ***

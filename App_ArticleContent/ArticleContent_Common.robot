@@ -1,6 +1,8 @@
 *** Settings ***
 Documentation                           该文档是获取稿件详情模块接口用例文档
 Resource                                ../Common/Common.robot
+Library                                 ../Secret/XFJ_Des.py
+Library                                 ../Secret/authen.py
 Force Tags                              冒烟集-新福建APP     稿件详情相关接口（赖厚泽）
 ...                                     作者：张鹏
 
@@ -31,12 +33,20 @@ Get Event
     ...                                 ${type}=${TYPE}
     ...                                 ${eventtype}=${EVENTTYPE}
     ...                                 ${channel}=${CHANNEL}
+    ${secretinfo} =                     sign
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     id                  ${id}
     ...                                 siteID              ${siteid}
     ...                                 type                ${type}
     ...                                 eventType           ${eventtype}
     ...                                 channel             ${channel}
     ...                                 curVersions         ${CURVERSIONS}
+    Fapi Headers Set
+    ...                                 authtoken           ${token}
+    ...                                 time                ${time}
+    ...                                 sign                ${sign}
     Fapi Get                            ${APPIF_ALIAS}      ${EVENT_URI}
     ${data}                             Fapi Data To Object
     Set Suite Variable                  ${response_data}    ${data}

@@ -7,7 +7,7 @@ Force Tags                              冒烟集-新福建APP     稿件评论�
 ...                                     作者：江宝敏
 
 *** Variables ***
-${ID}                                   872                 #查看热门评论的稿件
+${ID}                                   3034132                 #查看热门评论的稿件
 ${RESULT}                               true
 *** Keywords ***
 
