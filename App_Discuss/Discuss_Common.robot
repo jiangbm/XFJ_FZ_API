@@ -95,18 +95,18 @@ Get Discuss Hot
     [Arguments]                         ${id}
     ...                                 ${source}=${SOURCE}
     ...                                 ${lastfileid}=${LASTFILEID}
-    ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
+#    ${secretinfo} =                     sign
+#    ${token} =                          Set Variable        ${secretinfo}[authtoken]
+#    ${time} =                           Set Variable        ${secretinfo}[time]
+#    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     id                  ${id}
     ...                                 source              ${source}
     ...                                 lastfileid          ${lastfileid}
     ...                                 curVersions         ${CURVERSIONS}
-    Fapi Headers Set
-    ...                                 authtoken           ${token}
-    ...                                 time                ${time}
-    ...                                 sign                ${sign}
+#    Fapi Headers Set
+#    ...                                 authtoken           ${token}
+#    ...                                 time                ${time}
+#    ...                                 sign                ${sign}
     Fapi Get                            ${APPIF_ALIAS}      ${GETDISCUSSHOT_URI}
     ${data}                             Fapi Data To Object
     Set Suite Variable                  ${response_data}    ${data}
