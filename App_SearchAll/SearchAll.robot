@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation                           该文档是检索某栏目及其子孙栏目的稿件接口用例文档
-Resource                                ../APP_SearchAll/SearchAll_Common.robot
+Resource                                ../App_SearchAll/SearchAll_Common.robot
 Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 Force Tags                              冒烟集-新福建APP     搜索接口/检索某栏目及其子孙栏目的稿件
