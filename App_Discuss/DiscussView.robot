@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation                           该文档是获取评论列表数据接口用例文档
-Resource                                ../APP_DISCUSS/Discuss_Common.robot
+Resource                                ../App_Discuss/Discuss_Common.robot
 Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 Force Tags                              冒烟集-新福建APP     评论列表

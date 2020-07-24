@@ -7,7 +7,7 @@ Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 
 *** Variables ***
-${NEWID}                                   4567890
+${NEWID}                                   125762
 ${STATUS}                                  -1
 
 *** Keywords ***

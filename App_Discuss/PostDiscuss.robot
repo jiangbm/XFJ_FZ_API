@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation                           评论提交接口用例文档
-Resource                                ../APP_DISCUSS/Discuss_Common.robot
+Resource                                ../App_Discuss/Discuss_Common.robot
 Resource                                ../App_ArticleContent/ArticleContent_Common.robot
 Resource                                ../APP_DISCUSSVIEW/DiscussView_Common.robot
 Suite Setup                             Create Session Common
