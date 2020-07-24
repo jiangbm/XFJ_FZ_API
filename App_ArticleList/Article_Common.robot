@@ -15,6 +15,13 @@ Get Articles
     [Documentation]                     获取栏目稿件列表接口
     [Arguments]                         ${columnid}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     columnId            ${columnid}
     ...                                 siteId              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -26,6 +33,13 @@ Get Article Counts
     [Documentation]                     获取列表页稿件的阅读数接口
     [Arguments]                         ${articleid}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     articleId           ${articleid}
     ...                                 siteId              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}

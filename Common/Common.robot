@@ -7,6 +7,8 @@ Library                                 OperatingSystem
 Library                                 DateTime
 Library                                 String
 Library                                 Selenium2Library
+Library                                 ../Secret/XFJ_Des.py
+Library                                 ../Secret/authen.py
 #Library                                 HttpLibrary.HTTP
 
 *** Variables ***

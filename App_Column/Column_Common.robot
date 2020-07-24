@@ -14,6 +14,13 @@ Get Columns
     [Documentation]                     获取栏目数据接口
     [Arguments]                         ${parentcolumnid}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     parentColumnId      ${parentcolumnid}
     ...                                 siteId              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}

@@ -7,10 +7,10 @@ Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 
 *** Variables ***
-${ID0}                                  57
+${ID0}                                  78
 ${ID1}                                  123456
 ${RESULT}                               福建交警
-${LIST}                               0
+${LIST}                                 0
 
 *** Keywords ***
 

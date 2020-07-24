@@ -9,7 +9,7 @@ Suite Teardown                          Fapi Delete All Sessions
 *** Variables ***
 ${CATID0}                               1
 ${CATID1}                               7
-${CATNAME}                              政府
+${CATNAME}                              屏山大院
 ${RESULT}                               0
 
 

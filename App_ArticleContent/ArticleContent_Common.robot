@@ -19,6 +19,13 @@ Get Article Content
     [Documentation]                     查看稿件详情接口
     [Arguments]                         ${articleid}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     articleId           ${articleid}
     ...                                 siteId              1
     ...                                 curVersions         ${CURVERSIONS}

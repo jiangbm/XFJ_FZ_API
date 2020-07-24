@@ -12,7 +12,7 @@ ${KEY0}                                 福建
 ${KEY1}                                 武汉加油
 ${KEY2}                                 福建交警
 ${LIST}                                 0
-${RESULT}                               福建日报莆田观察
+${RESULT}                               福建自然资源
 
 
 *** Keywords ***

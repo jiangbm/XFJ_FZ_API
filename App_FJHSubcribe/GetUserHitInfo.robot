@@ -8,7 +8,7 @@ Force Tags                              冒烟集-新福建App     获取当天�
 
 
 *** Variables ***
-${ID0}                                  57
+${ID0}                                  78
 ${ID1}                                  666
 ${RESULT}                               福建交警
 

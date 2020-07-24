@@ -4,8 +4,6 @@ Resource                                ../Common/Common.robot
 Resource                                ../App_Sso/Random_Time.robot
 # Library                                 ../App_Sso/Secret.py
 Library                                 ../App_Sso/Secret2.py
-Library                                 ../Secret/XFJ_Des.py
-Library                                 ../Secret/authen.py
 Force Tags                              冒烟集-新福建APP     sso-app接口（孙安）
 ...                                     作者：张鹏、江宝敏
 

@@ -44,6 +44,14 @@ Topic Sub
     ...                                 ${siteid}=${SITEID}
     ...                                 ${userid}=${USERID}
     ...                                 ${device}=${DEVICE}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
+    ...                                 Content-Type        application/x-www-form-urlencoded
     Fapi Params Set                     curVersions         ${CURVERSIONS}
     ${bodyData} =                       Create Dictionary
     ...                                 siteID              ${siteid}
@@ -51,7 +59,7 @@ Topic Sub
     ...                                 type                ${type}
     ...                                 userID              ${userid}
     ...                                 device              ${device}
-    Fapi Headers Set                    Content-Type        application/x-www-form-urlencoded
+
     Fapi Post                           ${APPIF_ALIAS}      ${TOPICSUB_URI}
     ${data}                             Fapi Data To Object
     Set Suite Variable                  ${response_data}    ${data}
@@ -70,7 +78,14 @@ Topic Sub Cancel
     ...                                 type                ${type}
     ...                                 userID              ${userid}
     ...                                 device              ${device}
-    Fapi Headers Set                    Content-Type        application/x-www-form-urlencoded
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
+    ...                                 Content-Type        application/x-www-form-urlencoded
     Fapi Post                           ${APPIF_ALIAS}      ${TOPICSUBCANCEL}   data=${bodyData}
     ${data}                             Fapi Data To Object
     Set Suite Variable                  ${response_data}    ${data}
@@ -80,6 +95,13 @@ Subcribe Xy
     [Arguments]                         ${colid}=${8}
     ...                                 ${siteid}=${SITEID}
     ...                                 ${device}=${DEVICE}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     curVersions         ${CURVERSIONS}
     ...                                 colID               ${colid}
     ...                                 siteID              ${siteid}
@@ -95,6 +117,13 @@ Get Subcribe Xys
     ...                                 ${siteid}=${SITEID}
     ...                                 ${device}=${DEVICE}
     Disable Warnings
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     userID              ${userid}
     ...                                 key                 ${key}
     ...                                 siteID              ${siteid}
@@ -111,6 +140,13 @@ Subcribe View
     ...                                 ${siteid}=${SITEID}
     ...                                 ${columnid}=${COLUMNID}
     ...                                 ${device}=${DEVICE}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     userID              ${userid}
     ...                                 siteID              ${siteid}
     ...                                 columnId            ${columnid}
@@ -124,6 +160,13 @@ Get Cats
     [Documentation]                     获取翔宇号全部分类接口
     [Arguments]                         ${siteid}=${SITEID}
     ...                                 ${code}=${CODE}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteId              ${siteid}
     ...                                 code                ${code}
     ...                                 curVersions         ${CURVERSIONS}
@@ -137,6 +180,13 @@ Get Cat Xys
     ...                                 ${siteid}=${SITEID}
     ...                                 ${start}=${START}
     ...                                 ${count}=${COUNT}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteID              ${siteid}
     ...                                 id                  ${id}
     ...                                 start               ${start}
@@ -151,6 +201,13 @@ Get Xy Info
     [Arguments]                         ${id}
     ...                                 ${siteid}=${SITEID}
     Disable Warnings
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     id                  ${id}
     ...                                 siteID              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -164,6 +221,13 @@ Xy Rank
     ...                                 ${userid}=${0}
     ...                                 ${siteid}=${SITEID}
     ...                                 ${device}=${DEVICE}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     userID              ${userid}
     ...                                 siteID              ${siteid}
     ...                                 device              ${device}
@@ -178,6 +242,13 @@ Search Xy Rank
     ...                                 ${userid}=${0}
     ...                                 ${siteid}=${SITEID}
     ...                                 ${device}=${DEVICE}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     userID              ${userid}
     ...                                 siteID              ${siteid}
     ...                                 device              ${device}
@@ -192,6 +263,13 @@ Hit Xy Bulletin
     [Arguments]                         ${userid}=${USERID}
     ...                                 ${id}=${XY_ID}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     curVersions         ${CURVERSIONS}
     ${bodyData} =                       Create Dictionary
     ...                                 siteID              ${siteid}
@@ -214,6 +292,13 @@ Recommend Xys
     [Documentation]                     推荐翔宇号
     [Arguments]                         ${userid}=${USERID}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteID              ${siteid}
     ...                                 userId              ${userid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -225,6 +310,13 @@ Get Xy Dynamic
     [Documentation]                     翔宇号动态列表查看
     [Arguments]                         ${xyid}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteId              ${siteid}
     ...                                 xyId                ${xyid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -239,6 +331,13 @@ Get User Hit Info
     ...                                 ${siteid}=${SITEID}
     ...                                 ${type}=${0}
     Disable Warnings
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteID              ${siteid}
     ...                                 type                ${type}
     ...                                 userID              ${userid}

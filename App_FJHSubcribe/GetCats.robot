@@ -7,7 +7,7 @@ Force Tags                              冒烟集-新福建App     获取翔宇�
 ...                                     作者：张鹏
 
 *** Variables ***
-${RESULT}                               本地
+${RESULT}                               政务
 
 *** Keywords ***
 

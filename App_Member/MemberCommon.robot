@@ -5,8 +5,6 @@ Library                                 OperatingSystem
 Library                                 String
 Library                                 Upload.py
 Library                                 ../App_Member/Upload.py
-Library                                 ../Secret/XFJ_Des.py
-Library                                 ../Secret/authen.py
 Force Tags                              冒烟集-新福建App     会员模块业务关键字（孙安、许雁良）
 ...                                     作者：黄羽、江宝敏
 

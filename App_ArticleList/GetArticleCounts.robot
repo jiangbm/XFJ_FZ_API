@@ -8,7 +8,7 @@ Force Tags                              冒烟集-新福建APP     栏目接口/
 
 
 *** Variables ***
-${ID0}                                  2005
+${ID0}                                  630984
 ${ID1}                                  8888
 ${RESULT}                               找不到相关稿件
 
@@ -19,6 +19,6 @@ ${RESULT}                               找不到相关稿件
     Get Article Counts                  ${ID0}
     Should Be Equal As Strings          ${response_data.fileId}                 ${ID0}
 
-当输入的稿件id存在时，接口返回改稿件的实时点击数
+当输入的稿件id不存在时，接口返回改稿件的实时点击数
     Get Article Counts                  ${ID1}
     Should Be Equal As Strings          ${response_data.errorInfo}              ${RESULT}

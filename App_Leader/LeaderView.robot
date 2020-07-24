@@ -10,7 +10,7 @@ Suite Teardown                          Fapi Delete All Sessions
 ${HASARTICLES0}                         49
 ${HASARTICLES1}                         18
 ${RESULT0}
-${RESULT1}                              中共十九届中央委员，福建省委书记，省人大常委会主任，福建省军区党委第一书记
+${RESULT1}                              中共十九届中央委员，省委书记，省人大常委会主任
 
 *** Keywords ***
 
