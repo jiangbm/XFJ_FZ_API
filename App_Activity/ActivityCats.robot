@@ -7,9 +7,9 @@ Force Tags                              冒烟集-新福建APP     互动活动/
 ...                                     作者：张鹏
 
 *** Variables ***
-${LEN_LIST}                             5
-${NAME}                                 精彩
-
+${LEN_LIST}                             0
+#${NAME}                                活动
+${RESULT}                               -1
 
 *** Keywords ***
 
@@ -17,5 +17,5 @@ ${NAME}                                 精彩
 *** Test Cases ***
 获取活动分类成功
     Get Activity Cats
-    Fapi Data Field Count Should Be     ${response_data}                        ${LEN_LIST}
-    Should Be Equal As Strings          ${response_data[0].name}                ${NAME}
+    Fapi Status Should Be               ${RESULT}
+#    Should Be Equal As Strings          ${response_data[0].name}                ${NAME}

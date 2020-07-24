@@ -1,0 +1,908 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.8.3 on win32)" generated="20200724 15:34:47.994" rpa="false">
+<suite id="s1" name="SaveActivity" source="D:\jiangbm\XFJ\API\App_Activity\SaveActivity.robot">
+<kw name="Create Session Common" library="Common" type="setup">
+<kw name="Fapi Create Session" library="FATL.FapiKeywords">
+<doc>Fapi Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${APPIF_URL}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:50.482" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200724 15:34:50.481" endtime="20200724 15:34:50.482"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:50.481" endtime="20200724 15:34:50.482"></status>
+</kw>
+<test id="s1-t1" name="活动未开始报名，接口未做限制可以直接报名成功">
+<kw name="Save Activity" library="Activity_Common">
+<doc>活动报名接口</doc>
+<arguments>
+<arg>${FILEID0}</arg>
+<arg>${USERID}</arg>
+</arguments>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200724 15:34:51.202" level="INFO">${secretinfo} = {'authtoken': '9a034bab168046d99c2d1f9d898d0427', 'time': '1595576090486', 'sign': '7dfca5295e5f545e0e7c4c3e4040dc7f'}</msg>
+<status status="PASS" starttime="20200724 15:34:50.487" endtime="20200724 15:34:51.202"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${authtoken}</var>
+</assign>
+<msg timestamp="20200724 15:34:51.203" level="INFO">${authtoken} = 9a034bab168046d99c2d1f9d898d0427</msg>
+<status status="PASS" starttime="20200724 15:34:51.202" endtime="20200724 15:34:51.203"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200724 15:34:51.203" level="INFO">${time} = 1595576090486</msg>
+<status status="PASS" starttime="20200724 15:34:51.203" endtime="20200724 15:34:51.203"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200724 15:34:51.204" level="INFO">${sign} = 7dfca5295e5f545e0e7c4c3e4040dc7f</msg>
+<status status="PASS" starttime="20200724 15:34:51.204" endtime="20200724 15:34:51.204"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${authtoken}</arg>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:51.204" endtime="20200724 15:34:51.205"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:51.205" endtime="20200724 15:34:51.205"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>fileId</arg>
+<arg>${fileid}</arg>
+<arg>userID</arg>
+<arg>${userid}</arg>
+<arg>device</arg>
+<arg>${device}</arg>
+<arg>siteId</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200724 15:34:51.206" level="INFO">${bodyData} = {'fileId': '305', 'userID': '571', 'device': '429A9EC0-58DE-41D6-B79A-4E073350FA38', 'siteId': '1'}</msg>
+<status status="PASS" starttime="20200724 15:34:51.206" endtime="20200724 15:34:51.207"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${SAVEACTIVITY_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:52.524" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ path_url=/app_if/saveActivity?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '7dfca5295e5f545e0e7c4c3e4040dc7f', 'time': '1595576090486', 'authtoken': '9a034bab168046d99c2d1f9d898d0427', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '74'} 
+ body=fileId=305&amp;userID=571&amp;device=429A9EC0-58DE-41D6-B79A-4E073350FA38&amp;siteId=1 
+ </msg>
+<msg timestamp="20200724 15:34:52.527" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ status=200, reason= 
+ body={"success":false,"message":"请不要重复报名"} 
+ </msg>
+<msg timestamp="20200724 15:34:52.527" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200724 15:34:52.528" level="INFO">  "success": false,</msg>
+<msg timestamp="20200724 15:34:52.528" level="INFO">  "message": "请不要重复报名"</msg>
+<msg timestamp="20200724 15:34:52.528" level="INFO">}</msg>
+<status status="PASS" starttime="20200724 15:34:51.207" endtime="20200724 15:34:52.528"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:50.486" endtime="20200724 15:34:52.528"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200724 15:34:52.530" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200724 15:34:52.530" endtime="20200724 15:34:52.530"></status>
+</kw>
+<tags>
+<tag>作者：张鹏</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>活动/活动报名（丁希）</tag>
+</tags>
+<status status="PASS" starttime="20200724 15:34:50.482" endtime="20200724 15:34:52.531" critical="yes"></status>
+</test>
+<test id="s1-t2" name="活动未开始报名开始报名成功">
+<kw name="Save Activity" library="Activity_Common">
+<doc>活动报名接口</doc>
+<arguments>
+<arg>${FILEID1}</arg>
+<arg>${USERID}</arg>
+</arguments>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200724 15:34:54.434" level="INFO">${secretinfo} = {'authtoken': '3e462fb64f5143f48502ca152b266d5f', 'time': '1595576092543', 'sign': 'a20fc961baed31ad8b33813f9a41b4cf'}</msg>
+<status status="PASS" starttime="20200724 15:34:52.542" endtime="20200724 15:34:54.434"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${authtoken}</var>
+</assign>
+<msg timestamp="20200724 15:34:54.435" level="INFO">${authtoken} = 3e462fb64f5143f48502ca152b266d5f</msg>
+<status status="PASS" starttime="20200724 15:34:54.435" endtime="20200724 15:34:54.435"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200724 15:34:54.435" level="INFO">${time} = 1595576092543</msg>
+<status status="PASS" starttime="20200724 15:34:54.435" endtime="20200724 15:34:54.435"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200724 15:34:54.436" level="INFO">${sign} = a20fc961baed31ad8b33813f9a41b4cf</msg>
+<status status="PASS" starttime="20200724 15:34:54.435" endtime="20200724 15:34:54.436"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${authtoken}</arg>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:54.436" endtime="20200724 15:34:54.436"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:54.436" endtime="20200724 15:34:54.437"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>fileId</arg>
+<arg>${fileid}</arg>
+<arg>userID</arg>
+<arg>${userid}</arg>
+<arg>device</arg>
+<arg>${device}</arg>
+<arg>siteId</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200724 15:34:54.437" level="INFO">${bodyData} = {'fileId': '306', 'userID': '571', 'device': '429A9EC0-58DE-41D6-B79A-4E073350FA38', 'siteId': '1'}</msg>
+<status status="PASS" starttime="20200724 15:34:54.437" endtime="20200724 15:34:54.437"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${SAVEACTIVITY_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:54.546" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ path_url=/app_if/saveActivity?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': 'a20fc961baed31ad8b33813f9a41b4cf', 'time': '1595576092543', 'authtoken': '3e462fb64f5143f48502ca152b266d5f', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=e81478b741a8d6bd45; HWWAFSESTIME=1595576090787', 'Content-Length': '74'} 
+ body=fileId=306&amp;userID=571&amp;device=429A9EC0-58DE-41D6-B79A-4E073350FA38&amp;siteId=1 
+ </msg>
+<msg timestamp="20200724 15:34:54.547" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ status=200, reason= 
+ body={"success":false,"message":"请不要重复报名"} 
+ </msg>
+<msg timestamp="20200724 15:34:54.547" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200724 15:34:54.547" level="INFO">  "success": false,</msg>
+<msg timestamp="20200724 15:34:54.547" level="INFO">  "message": "请不要重复报名"</msg>
+<msg timestamp="20200724 15:34:54.547" level="INFO">}</msg>
+<status status="PASS" starttime="20200724 15:34:54.437" endtime="20200724 15:34:54.548"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:52.541" endtime="20200724 15:34:54.548"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200724 15:34:54.548" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200724 15:34:54.548" endtime="20200724 15:34:54.548"></status>
+</kw>
+<tags>
+<tag>作者：张鹏</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>活动/活动报名（丁希）</tag>
+</tags>
+<status status="PASS" starttime="20200724 15:34:52.536" endtime="20200724 15:34:54.549" critical="yes"></status>
+</test>
+<test id="s1-t3" name="活动开始报名开始报名成功">
+<kw name="Save Activity" library="Activity_Common">
+<doc>活动报名接口</doc>
+<arguments>
+<arg>${FILEID2}</arg>
+<arg>${USERID}</arg>
+</arguments>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200724 15:34:55.272" level="INFO">${secretinfo} = {'authtoken': 'c438937d35b5460ba73eda9f9428cd89', 'time': '1595576094553', 'sign': 'd4964ecc602250d01333a2e413efbf4a'}</msg>
+<status status="PASS" starttime="20200724 15:34:54.553" endtime="20200724 15:34:55.272"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${authtoken}</var>
+</assign>
+<msg timestamp="20200724 15:34:55.272" level="INFO">${authtoken} = c438937d35b5460ba73eda9f9428cd89</msg>
+<status status="PASS" starttime="20200724 15:34:55.272" endtime="20200724 15:34:55.272"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200724 15:34:55.273" level="INFO">${time} = 1595576094553</msg>
+<status status="PASS" starttime="20200724 15:34:55.273" endtime="20200724 15:34:55.273"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200724 15:34:55.273" level="INFO">${sign} = d4964ecc602250d01333a2e413efbf4a</msg>
+<status status="PASS" starttime="20200724 15:34:55.273" endtime="20200724 15:34:55.273"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${authtoken}</arg>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:55.274" endtime="20200724 15:34:55.274"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:55.274" endtime="20200724 15:34:55.274"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>fileId</arg>
+<arg>${fileid}</arg>
+<arg>userID</arg>
+<arg>${userid}</arg>
+<arg>device</arg>
+<arg>${device}</arg>
+<arg>siteId</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200724 15:34:55.275" level="INFO">${bodyData} = {'fileId': '307', 'userID': '571', 'device': '429A9EC0-58DE-41D6-B79A-4E073350FA38', 'siteId': '1'}</msg>
+<status status="PASS" starttime="20200724 15:34:55.274" endtime="20200724 15:34:55.275"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${SAVEACTIVITY_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:55.361" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ path_url=/app_if/saveActivity?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': 'd4964ecc602250d01333a2e413efbf4a', 'time': '1595576094553', 'authtoken': 'c438937d35b5460ba73eda9f9428cd89', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=e81478b741a8d6bd45; HWWAFSESTIME=1595576090787', 'Content-Length': '74'} 
+ body=fileId=307&amp;userID=571&amp;device=429A9EC0-58DE-41D6-B79A-4E073350FA38&amp;siteId=1 
+ </msg>
+<msg timestamp="20200724 15:34:55.362" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ status=200, reason= 
+ body={"success":false,"message":"请不要重复报名"} 
+ </msg>
+<msg timestamp="20200724 15:34:55.363" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200724 15:34:55.363" level="INFO">  "success": false,</msg>
+<msg timestamp="20200724 15:34:55.363" level="INFO">  "message": "请不要重复报名"</msg>
+<msg timestamp="20200724 15:34:55.363" level="INFO">}</msg>
+<status status="PASS" starttime="20200724 15:34:55.275" endtime="20200724 15:34:55.363"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:54.552" endtime="20200724 15:34:55.363"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200724 15:34:55.364" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200724 15:34:55.363" endtime="20200724 15:34:55.364"></status>
+</kw>
+<tags>
+<tag>作者：张鹏</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>活动/活动报名（丁希）</tag>
+</tags>
+<status status="PASS" starttime="20200724 15:34:54.550" endtime="20200724 15:34:55.364" critical="yes"></status>
+</test>
+<test id="s1-t4" name="活动进行中报名结束无法报名">
+<kw name="Save Activity" library="Activity_Common">
+<doc>活动报名接口</doc>
+<arguments>
+<arg>${FILEID3}</arg>
+<arg>${USERID}</arg>
+</arguments>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.038" level="INFO">${secretinfo} = {'authtoken': 'b995f891a12e4fe78e905f4bc427d8d0', 'time': '1595576095367', 'sign': '130bec0c489df33538cff6aa56d1a2ff'}</msg>
+<status status="PASS" starttime="20200724 15:34:55.368" endtime="20200724 15:34:56.038"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${authtoken}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.039" level="INFO">${authtoken} = b995f891a12e4fe78e905f4bc427d8d0</msg>
+<status status="PASS" starttime="20200724 15:34:56.038" endtime="20200724 15:34:56.039"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.039" level="INFO">${time} = 1595576095367</msg>
+<status status="PASS" starttime="20200724 15:34:56.039" endtime="20200724 15:34:56.039"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.039" level="INFO">${sign} = 130bec0c489df33538cff6aa56d1a2ff</msg>
+<status status="PASS" starttime="20200724 15:34:56.039" endtime="20200724 15:34:56.039"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${authtoken}</arg>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:56.040" endtime="20200724 15:34:56.040"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:56.040" endtime="20200724 15:34:56.040"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>fileId</arg>
+<arg>${fileid}</arg>
+<arg>userID</arg>
+<arg>${userid}</arg>
+<arg>device</arg>
+<arg>${device}</arg>
+<arg>siteId</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.041" level="INFO">${bodyData} = {'fileId': '308', 'userID': '571', 'device': '429A9EC0-58DE-41D6-B79A-4E073350FA38', 'siteId': '1'}</msg>
+<status status="PASS" starttime="20200724 15:34:56.040" endtime="20200724 15:34:56.041"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${SAVEACTIVITY_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:56.125" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ path_url=/app_if/saveActivity?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '130bec0c489df33538cff6aa56d1a2ff', 'time': '1595576095367', 'authtoken': 'b995f891a12e4fe78e905f4bc427d8d0', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=e81478b741a8d6bd45; HWWAFSESTIME=1595576090787', 'Content-Length': '74'} 
+ body=fileId=308&amp;userID=571&amp;device=429A9EC0-58DE-41D6-B79A-4E073350FA38&amp;siteId=1 
+ </msg>
+<msg timestamp="20200724 15:34:56.127" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ status=200, reason= 
+ body={"success":false,"message":"请不要重复报名"} 
+ </msg>
+<msg timestamp="20200724 15:34:56.127" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200724 15:34:56.127" level="INFO">  "success": false,</msg>
+<msg timestamp="20200724 15:34:56.127" level="INFO">  "message": "请不要重复报名"</msg>
+<msg timestamp="20200724 15:34:56.127" level="INFO">}</msg>
+<status status="PASS" starttime="20200724 15:34:56.041" endtime="20200724 15:34:56.127"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:55.367" endtime="20200724 15:34:56.128"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200724 15:34:56.130" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200724 15:34:56.129" endtime="20200724 15:34:56.130"></status>
+</kw>
+<tags>
+<tag>作者：张鹏</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>活动/活动报名（丁希）</tag>
+</tags>
+<status status="PASS" starttime="20200724 15:34:55.365" endtime="20200724 15:34:56.131" critical="yes"></status>
+</test>
+<test id="s1-t5" name="活动结束无法报名">
+<kw name="Save Activity" library="Activity_Common">
+<doc>活动报名接口</doc>
+<arguments>
+<arg>${FILEID4}</arg>
+<arg>${USERID}</arg>
+</arguments>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.898" level="INFO">${secretinfo} = {'authtoken': 'da50fabcfaaf42fcb7111a51877d7a37', 'time': '1595576096137', 'sign': '5762e1c6c7a5165e381fb946566aa0a8'}</msg>
+<status status="PASS" starttime="20200724 15:34:56.137" endtime="20200724 15:34:56.898"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${authtoken}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.898" level="INFO">${authtoken} = da50fabcfaaf42fcb7111a51877d7a37</msg>
+<status status="PASS" starttime="20200724 15:34:56.898" endtime="20200724 15:34:56.898"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.899" level="INFO">${time} = 1595576096137</msg>
+<status status="PASS" starttime="20200724 15:34:56.898" endtime="20200724 15:34:56.899"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.899" level="INFO">${sign} = 5762e1c6c7a5165e381fb946566aa0a8</msg>
+<status status="PASS" starttime="20200724 15:34:56.899" endtime="20200724 15:34:56.899"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${authtoken}</arg>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:56.899" endtime="20200724 15:34:56.900"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:56.900" endtime="20200724 15:34:56.900"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>fileId</arg>
+<arg>${fileid}</arg>
+<arg>userID</arg>
+<arg>${userid}</arg>
+<arg>device</arg>
+<arg>${device}</arg>
+<arg>siteId</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200724 15:34:56.900" level="INFO">${bodyData} = {'fileId': '5', 'userID': '571', 'device': '429A9EC0-58DE-41D6-B79A-4E073350FA38', 'siteId': '1'}</msg>
+<status status="PASS" starttime="20200724 15:34:56.900" endtime="20200724 15:34:56.900"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${SAVEACTIVITY_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:56.982" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ path_url=/app_if/saveActivity?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '5762e1c6c7a5165e381fb946566aa0a8', 'time': '1595576096137', 'authtoken': 'da50fabcfaaf42fcb7111a51877d7a37', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=e81478b741a8d6bd45; HWWAFSESTIME=1595576090787', 'Content-Length': '72'} 
+ body=fileId=5&amp;userID=571&amp;device=429A9EC0-58DE-41D6-B79A-4E073350FA38&amp;siteId=1 
+ </msg>
+<msg timestamp="20200724 15:34:56.983" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ status=200, reason= 
+ body={"success":false,"message":"请不要重复报名"} 
+ </msg>
+<msg timestamp="20200724 15:34:56.983" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200724 15:34:56.983" level="INFO">  "success": false,</msg>
+<msg timestamp="20200724 15:34:56.983" level="INFO">  "message": "请不要重复报名"</msg>
+<msg timestamp="20200724 15:34:56.983" level="INFO">}</msg>
+<status status="PASS" starttime="20200724 15:34:56.901" endtime="20200724 15:34:56.984"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:56.136" endtime="20200724 15:34:56.984"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200724 15:34:56.985" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200724 15:34:56.984" endtime="20200724 15:34:56.985"></status>
+</kw>
+<tags>
+<tag>作者：张鹏</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>活动/活动报名（丁希）</tag>
+</tags>
+<status status="PASS" starttime="20200724 15:34:56.133" endtime="20200724 15:34:56.985" critical="yes"></status>
+</test>
+<test id="s1-t6" name="活动报名已满提示报名已满">
+<kw name="Save Activity" library="Activity_Common">
+<doc>活动报名接口</doc>
+<arguments>
+<arg>${FILEID5}</arg>
+<arg>${USERID}</arg>
+</arguments>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.061" level="INFO">${secretinfo} = {'authtoken': 'a4ee6064df984193997f654cfbed4daf', 'time': '1595576096988', 'sign': '321ecd29b8f0b1ecb258ad68400bb63c'}</msg>
+<status status="PASS" starttime="20200724 15:34:56.989" endtime="20200724 15:34:59.061"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${authtoken}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.061" level="INFO">${authtoken} = a4ee6064df984193997f654cfbed4daf</msg>
+<status status="PASS" starttime="20200724 15:34:59.061" endtime="20200724 15:34:59.061"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.062" level="INFO">${time} = 1595576096988</msg>
+<status status="PASS" starttime="20200724 15:34:59.061" endtime="20200724 15:34:59.062"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.062" level="INFO">${sign} = 321ecd29b8f0b1ecb258ad68400bb63c</msg>
+<status status="PASS" starttime="20200724 15:34:59.062" endtime="20200724 15:34:59.062"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${authtoken}</arg>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:59.062" endtime="20200724 15:34:59.063"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:59.063" endtime="20200724 15:34:59.063"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>fileId</arg>
+<arg>${fileid}</arg>
+<arg>userID</arg>
+<arg>${userid}</arg>
+<arg>device</arg>
+<arg>${device}</arg>
+<arg>siteId</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.063" level="INFO">${bodyData} = {'fileId': '242', 'userID': '571', 'device': '429A9EC0-58DE-41D6-B79A-4E073350FA38', 'siteId': '1'}</msg>
+<status status="PASS" starttime="20200724 15:34:59.063" endtime="20200724 15:34:59.064"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${SAVEACTIVITY_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:59.149" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ path_url=/app_if/saveActivity?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '321ecd29b8f0b1ecb258ad68400bb63c', 'time': '1595576096988', 'authtoken': 'a4ee6064df984193997f654cfbed4daf', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=e81478b741a8d6bd45; HWWAFSESTIME=1595576090787', 'Content-Length': '74'} 
+ body=fileId=242&amp;userID=571&amp;device=429A9EC0-58DE-41D6-B79A-4E073350FA38&amp;siteId=1 
+ </msg>
+<msg timestamp="20200724 15:34:59.152" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ status=200, reason= 
+ body={"success":false,"message":"活动名额已满，请下次再来"} 
+ </msg>
+<msg timestamp="20200724 15:34:59.152" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200724 15:34:59.152" level="INFO">  "success": false,</msg>
+<msg timestamp="20200724 15:34:59.152" level="INFO">  "message": "活动名额已满，请下次再来"</msg>
+<msg timestamp="20200724 15:34:59.152" level="INFO">}</msg>
+<status status="PASS" starttime="20200724 15:34:59.064" endtime="20200724 15:34:59.152"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:56.988" endtime="20200724 15:34:59.153"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200724 15:34:59.154" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200724 15:34:59.154" endtime="20200724 15:34:59.154"></status>
+</kw>
+<tags>
+<tag>作者：张鹏</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>活动/活动报名（丁希）</tag>
+</tags>
+<status status="PASS" starttime="20200724 15:34:56.987" endtime="20200724 15:34:59.155" critical="yes"></status>
+</test>
+<test id="s1-t7" name="当活动不存在时报名">
+<kw name="Save Activity" library="Activity_Common">
+<doc>活动报名接口</doc>
+<arguments>
+<arg>${FILEID6}</arg>
+<arg>${USERID}</arg>
+</arguments>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.869" level="INFO">${secretinfo} = {'authtoken': '46a9e5e3dbd047b2bbc230aed95911d7', 'time': '1595576099162', 'sign': '956e93d9c761a155d45b444c2d24a196'}</msg>
+<status status="PASS" starttime="20200724 15:34:59.163" endtime="20200724 15:34:59.870"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${authtoken}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.870" level="INFO">${authtoken} = 46a9e5e3dbd047b2bbc230aed95911d7</msg>
+<status status="PASS" starttime="20200724 15:34:59.870" endtime="20200724 15:34:59.870"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.870" level="INFO">${time} = 1595576099162</msg>
+<status status="PASS" starttime="20200724 15:34:59.870" endtime="20200724 15:34:59.870"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.871" level="INFO">${sign} = 956e93d9c761a155d45b444c2d24a196</msg>
+<status status="PASS" starttime="20200724 15:34:59.871" endtime="20200724 15:34:59.871"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${authtoken}</arg>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:59.871" endtime="20200724 15:34:59.871"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200724 15:34:59.871" endtime="20200724 15:34:59.871"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>fileId</arg>
+<arg>${fileid}</arg>
+<arg>userID</arg>
+<arg>${userid}</arg>
+<arg>device</arg>
+<arg>${device}</arg>
+<arg>siteId</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200724 15:34:59.872" level="INFO">${bodyData} = {'fileId': '888', 'userID': '571', 'device': '429A9EC0-58DE-41D6-B79A-4E073350FA38', 'siteId': '1'}</msg>
+<status status="PASS" starttime="20200724 15:34:59.872" endtime="20200724 15:34:59.872"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${SAVEACTIVITY_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200724 15:34:59.957" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ path_url=/app_if/saveActivity?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '956e93d9c761a155d45b444c2d24a196', 'time': '1595576099162', 'authtoken': '46a9e5e3dbd047b2bbc230aed95911d7', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=e81478b741a8d6bd45; HWWAFSESTIME=1595576090787', 'Content-Length': '74'} 
+ body=fileId=888&amp;userID=571&amp;device=429A9EC0-58DE-41D6-B79A-4E073350FA38&amp;siteId=1 
+ </msg>
+<msg timestamp="20200724 15:34:59.958" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/saveActivity?curVersions=1 
+ status=200, reason= 
+ body={"success":false,"message":"活动名额已满，请下次再来"} 
+ </msg>
+<msg timestamp="20200724 15:34:59.958" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200724 15:34:59.958" level="INFO">  "success": false,</msg>
+<msg timestamp="20200724 15:34:59.958" level="INFO">  "message": "活动名额已满，请下次再来"</msg>
+<msg timestamp="20200724 15:34:59.958" level="INFO">}</msg>
+<status status="PASS" starttime="20200724 15:34:59.872" endtime="20200724 15:34:59.958"></status>
+</kw>
+<status status="PASS" starttime="20200724 15:34:59.161" endtime="20200724 15:34:59.959"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200724 15:34:59.959" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200724 15:34:59.959" endtime="20200724 15:34:59.959"></status>
+</kw>
+<tags>
+<tag>作者：张鹏</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>活动/活动报名（丁希）</tag>
+</tags>
+<status status="PASS" starttime="20200724 15:34:59.158" endtime="20200724 15:34:59.960" critical="yes"></status>
+</test>
+<kw name="Fapi Delete All Sessions" library="FATL.FapiKeywords" type="teardown">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20200724 15:34:59.962" level="INFO">Delete All Sessions</msg>
+<status status="PASS" starttime="20200724 15:34:59.962" endtime="20200724 15:34:59.962"></status>
+</kw>
+<doc>活动报名</doc>
+<status status="PASS" starttime="20200724 15:34:47.999" endtime="20200724 15:34:59.962"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="7" fail="0">Critical Tests</stat>
+<stat pass="7" fail="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="7" fail="0">作者：张鹏</stat>
+<stat pass="7" fail="0">冒烟集-新福建APP</stat>
+<stat pass="7" fail="0">活动/活动报名（丁希）</stat>
+</tag>
+<suite>
+<stat pass="7" fail="0" id="s1" name="SaveActivity">SaveActivity</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

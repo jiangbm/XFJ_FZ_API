@@ -13,7 +13,7 @@ ${FILEID2}                              307                 #活动进行中
 ${FILEID3}                              308                 #报名已结束
 ${FILEID4}                              5                   #活动已结束
 ${FILEID5}                              242                 #名额已满
-${FILEID6}                              888                 #活动不存在
+${FILEID6}                              8888                #活动不存在
 ${USERID}                               571
 *** Keywords ***
 

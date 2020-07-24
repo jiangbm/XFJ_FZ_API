@@ -8,8 +8,8 @@ Force Tags                              冒烟集-新福建APP     互动活动/
 
 *** Variables ***
 ${ID0}                                  66666
-${ID1}                                  242
-${ID2}                                  223
+${ID1}                                  752
+#${ID2}                                  223
 ${RESULT0}                              ${EMPTY}
 
 *** Keywords ***
@@ -25,6 +25,6 @@ ${RESULT0}                              ${EMPTY}
     Get Activity Detail                 ${ID1}
     Should Be Equal As Strings          ${response_data.fileId}                 ${ID1}
 
-活动资源存在查看链接活动详情，接口返回
-    Get Activity Detail                 ${ID2}
-    Should Be Equal As Strings          ${response_data.fileId}                 ${ID2}
+#活动资源存在查看链接活动详情，接口返回
+#    Get Activity Detail                 ${ID2}
+#    Should Be Equal As Strings          ${response_data.fileId}                 ${ID2}

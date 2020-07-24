@@ -1,8 +1,10 @@
 *** Settings ***
 Documentation                           该文档是获取稿件详情模块接口用例文档
 Resource                                ../Common/Common.robot
-Force Tags                              冒烟集-新福建APP     活动相关接口（丁希）
-...                                     作者：张鹏
+Library                                 ../Secret/XFJ_Des.py
+Library                                 ../Secret/authen.py
+#Force Tags                              冒烟集-新福建APP     活动相关接口（丁希）
+#...                                     作者：张鹏
 
 *** Variables ***
 ${GETACTCATS_URI}                       /activityCats       #活动分类接口
@@ -20,20 +22,33 @@ ${PAGE}                                 0
 Get Activity Cats
     [Documentation]                     获取活动分类
     [Arguments]                         ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     siteID              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Get                            ${APPIF_ALIAS}      ${GETACTCATS_URI}
-    ${data} =                           Fapi Data To Object
-    Set Suite Variable                  ${response_data}    ${data}
-
+    ${response_data} =                  Fapi Response Data
+    Set Suite Variable                  ${response_data}
 
 Get Activity Detail
     [Documentation]                     获取活动详情
     [Arguments]                         ${fileid}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     siteID              ${siteid}
     ...                                 fileId              ${fileid}
     ...                                 curVersions         ${CURVERSIONS}
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Get                            ${APPIF_ALIAS}      ${ACTDETAIL_URI}
     ${data} =                           Fapi Data To Object
     Set Suite Variable                  ${response_data}   ${data}
@@ -42,6 +57,13 @@ Get Activity List
     [Documentation]                     获取活动列表
     [Arguments]                         ${catid}=${CATID}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteID              ${siteid}
     ...                                 catID               ${catid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -53,6 +75,13 @@ Get EntryList
     [Documentation]                     活动报名名单查看
     [Arguments]                         ${fileid}
     ...                                 ${siteid}=${SITEID}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     fileId              ${fileid}
     ...                                 siteId              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -66,6 +95,13 @@ My Activity List
     [Arguments]                         ${userid}
     ...                                 ${siteid}=${SITEID}
     ...                                 ${page}=${PAGE}
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     userID              ${userid}
     ...                                 siteId              ${siteid}
     ...                                 page                ${page}
@@ -80,7 +116,14 @@ Save Activity
     ...                                 ${userid}
     ...                                 ${device}=${DEVICE}
     ...                                 ${siteid}=${SITEID}
-    Fapi Headers Set                    Content-Type        application/x-www-form-urlencoded
+    ${secretinfo} =                     sign
+    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    sign                ${sign}
+    ...                                 time                ${time}
+    ...                                 authtoken           ${authtoken}
+    ...                                 Content-Type        application/x-www-form-urlencoded
     Fapi Params Set                     curVersions         ${CURVERSIONS}
     ${bodyData} =                       Create Dictionary
     ...                                 fileId              ${fileid}
