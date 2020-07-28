@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 3.2.1 (Python 3.8.3 on win32)" generated="20200724 16:55:30.636" rpa="false">
-<suite id="s1" name="App Live" source="D:\jiangbm\XFJ\API\App_Live">
-<suite id="s1-s1" name="GetLiveArticle" source="D:\jiangbm\XFJ\API\App_Live\GetLiveArticle.robot">
+<robot generator="Robot 3.2.1 (Python 3.8.3 on win32)" generated="20200728 11:41:05.548" rpa="false">
+<suite id="s1" name="APP ScoreManager" source="D:\jiangbm\XFJ\API\APP_ScoreManager">
+<suite id="s1-s1" name="Convert" source="D:\jiangbm\XFJ\API\APP_ScoreManager\Convert.robot">
 <kw name="Create Session Common" library="Common" type="setup">
 <kw name="Fapi Create Session" library="FATL.FapiKeywords">
 <doc>Fapi Create Session: create a HTTP session to a server</doc>
@@ -9,113 +9,2422 @@
 <arg>${APPIF_ALIAS}</arg>
 <arg>${APPIF_URL}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:35.084" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20200724 16:55:35.084" endtime="20200724 16:55:35.085"></status>
+<msg timestamp="20200728 11:41:07.134" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200728 11:41:07.134" endtime="20200728 11:41:07.134"></status>
 </kw>
-<status status="PASS" starttime="20200724 16:55:35.084" endtime="20200724 16:55:35.085"></status>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.702" level="INFO">${secretinfo} = {'authtoken': '5530f6475dbd46039e94d422ef5c2585', 'time': '1595907667133', 'sign': '62a48a803f6df4ee318a4e7f4063fbb6'}</msg>
+<status status="PASS" starttime="20200728 11:41:07.134" endtime="20200728 11:41:07.702"></status>
 </kw>
-<test id="s1-s1-t1" name="查看直播栏目下的稿件列表，接口返回直播栏目下稿件数据">
-<kw name="Get Live Articles" library="LiveCommon">
-<doc>直播稿件列表</doc>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.702" level="INFO">${token} = 5530f6475dbd46039e94d422ef5c2585</msg>
+<status status="PASS" starttime="20200728 11:41:07.702" endtime="20200728 11:41:07.702"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.702" level="INFO">${time} = 1595907667133</msg>
+<status status="PASS" starttime="20200728 11:41:07.702" endtime="20200728 11:41:07.702"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.702" level="INFO">${sign} = 62a48a803f6df4ee318a4e7f4063fbb6</msg>
+<status status="PASS" starttime="20200728 11:41:07.702" endtime="20200728 11:41:07.702"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${token}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:07.702" endtime="20200728 11:41:07.702"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:07.134" endtime="20200728 11:41:07.702"></status>
+</kw>
+<test id="s1-s1-t1" name="积分兑换，接口返回积分扣减成功">
+<kw name="Convert" library="ScoreManagerCommon">
+<doc>积分扣减</doc>
+<arguments>
+<arg>${ETYPE0}</arg>
+<arg>${EVENT0}</arg>
+<arg>${SCORE0}</arg>
+<arg>${MEMBER}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.712" level="INFO">${time} = 1595907667712</msg>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.712" level="INFO">${typetime} = 1595907667712</msg>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<msg timestamp="20200728 11:41:07.712" level="INFO">${time} = 1595907667712</msg>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.712" level="INFO">485c833a7010ef1e633e8ba03f5ca4682c298b43</msg>
+<msg timestamp="20200728 11:41:07.712" level="INFO">${sign} = 485c833a7010ef1e633e8ba03f5ca4682c298b43</msg>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<kw name="Str" library="Str">
+<arguments>
+<arg>${event}</arg>
+<arg>${score}</arg>
+</arguments>
+<assign>
+<var>${info}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.712" level="INFO">{msEvent:"积分兑换",msMemo:"积分扣除测试",msScore:"1"}</msg>
+<msg timestamp="20200728 11:41:07.712" level="INFO">${info} = {msEvent:"积分兑换",msMemo:"积分扣除测试",msScore:"1"}</msg>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>info</arg>
+<arg>${info}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.712" level="INFO">${bodyData} = {'eType': '3', 'member': '494', 'time': '1595907667712', 'sign': '485c833a7010ef1e633e8ba03f5ca4682c298b43', 'info': '{msEvent:"积分兑换",msMemo:"积分扣除测试",msScore:"1"}', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.712"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${CONVERT_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:07.904" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ path_url=/app_if/amuc/api/event/convert?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907667133', 'authtoken': '5530f6475dbd46039e94d422ef5c2585', 'sign': '62a48a803f6df4ee318a4e7f4063fbb6', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '248'} 
+ body=eType=3&amp;member=494&amp;time=1595907667712&amp;sign=485c833a7010ef1e633e8ba03f5ca4682c298b43&amp;info=%7BmsEvent%3A%22%E7%A7%AF%E5%88%86%E5%85%91%E6%8D%A2%22%2CmsMemo%3A%22%E7%A7%AF%E5%88%86%E6%89%A3%E9%99%A4%E6%B5%8B%E8%AF%95%22%2CmsScore%3A%221%22%7D&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"code":"1011","msg":"用户不存在"}} 
+ </msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">    "code": "1011",</msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">    "msg": "用户不存在"</msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:07.904" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.914"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.914" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A508&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:07.914" endtime="20200728 11:41:07.914"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:07.914" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A508&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:07.914" endtime="20200728 11:41:07.914"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:07.712" endtime="20200728 11:41:07.914"></status>
+</kw>
+<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi response status code should be 0 (means success)</doc>
+<status status="PASS" starttime="20200728 11:41:07.914" endtime="20200728 11:41:07.914"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.code}</arg>
+<arg>${CODE0}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:07.924" level="FAIL">1011 != 1004</msg>
+<status status="FAIL" starttime="20200728 11:41:07.924" endtime="20200728 11:41:07.924"></status>
+</kw>
+<tags>
+<tag>作者：黄羽</tag>
+<tag>冒烟-新福建</tag>
+<tag>积分扣减/积分管理（孙安）</tag>
+</tags>
+<status status="FAIL" starttime="20200728 11:41:07.702" endtime="20200728 11:41:07.924" critical="yes">1011 != 1004</status>
+</test>
+<test id="s1-s1-t2" name="手工扣减积分，接口返回积分扣减成功">
+<kw name="Convert" library="ScoreManagerCommon">
+<doc>积分扣减</doc>
+<arguments>
+<arg>${ETYPE1}</arg>
+<arg>${EVENT1}</arg>
+<arg>${SCORE0}</arg>
+<arg>${MEMBER}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.944" level="INFO">${time} = 1595907667943</msg>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.944" level="INFO">${typetime} = 1595907667943</msg>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<msg timestamp="20200728 11:41:07.944" level="INFO">${time} = 1595907667943</msg>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.944" level="INFO">cfd9b8e6d8b2a5305e237eee5e46bf68ea6c5244</msg>
+<msg timestamp="20200728 11:41:07.944" level="INFO">${sign} = cfd9b8e6d8b2a5305e237eee5e46bf68ea6c5244</msg>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<kw name="Str" library="Str">
+<arguments>
+<arg>${event}</arg>
+<arg>${score}</arg>
+</arguments>
+<assign>
+<var>${info}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.944" level="INFO">{msEvent:"手工扣减",msMemo:"积分扣除测试",msScore:"1"}</msg>
+<msg timestamp="20200728 11:41:07.944" level="INFO">${info} = {msEvent:"手工扣减",msMemo:"积分扣除测试",msScore:"1"}</msg>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>info</arg>
+<arg>${info}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:07.944" level="INFO">${bodyData} = {'eType': '2', 'member': '494', 'time': '1595907667943', 'sign': 'cfd9b8e6d8b2a5305e237eee5e46bf68ea6c5244', 'info': '{msEvent:"手工扣减",msMemo:"积分扣除测试",msScore:"1"}', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:07.944"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${CONVERT_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.002" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ path_url=/app_if/amuc/api/event/convert?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907667133', 'authtoken': '5530f6475dbd46039e94d422ef5c2585', 'sign': '62a48a803f6df4ee318a4e7f4063fbb6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=83fa19479bbc023332; HWWAFSESTIME=1595907663508', 'Content-Length': '248'} 
+ body=eType=2&amp;member=494&amp;time=1595907667943&amp;sign=cfd9b8e6d8b2a5305e237eee5e46bf68ea6c5244&amp;info=%7BmsEvent%3A%22%E6%89%8B%E5%B7%A5%E6%89%A3%E5%87%8F%22%2CmsMemo%3A%22%E7%A7%AF%E5%88%86%E6%89%A3%E9%99%A4%E6%B5%8B%E8%AF%95%22%2CmsScore%3A%221%22%7D&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"code":"1011","msg":"用户不存在"}} 
+ </msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">    "code": "1011",</msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">    "msg": "用户不存在"</msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:08.002" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:07.944" endtime="20200728 11:41:08.002"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.002" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A610&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:08.002" endtime="20200728 11:41:08.002"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.002" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A610&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:08.002" endtime="20200728 11:41:08.002"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:07.934" endtime="20200728 11:41:08.002"></status>
+</kw>
+<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi response status code should be 0 (means success)</doc>
+<status status="PASS" starttime="20200728 11:41:08.002" endtime="20200728 11:41:08.002"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.code}</arg>
+<arg>${CODE0}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.002" level="FAIL">1011 != 1004</msg>
+<status status="FAIL" starttime="20200728 11:41:08.002" endtime="20200728 11:41:08.002"></status>
+</kw>
+<tags>
+<tag>作者：黄羽</tag>
+<tag>冒烟-新福建</tag>
+<tag>积分扣减/积分管理（孙安）</tag>
+</tags>
+<status status="FAIL" starttime="20200728 11:41:07.924" endtime="20200728 11:41:08.012" critical="yes">1011 != 1004</status>
+</test>
+<test id="s1-s1-t3" name="系统产生扣减积分，接口返回积分扣减成功">
+<kw name="Convert" library="ScoreManagerCommon">
+<doc>积分扣减</doc>
+<arguments>
+<arg>${ETYPE2}</arg>
+<arg>${EVENT2}</arg>
+<arg>${SCORE0}</arg>
+<arg>${MEMBER}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.022" level="INFO">${time} = 1595907668022</msg>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.022" level="INFO">${typetime} = 1595907668022</msg>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<msg timestamp="20200728 11:41:08.022" level="INFO">${time} = 1595907668022</msg>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.022" level="INFO">54c10ce7f8be66ded1632fc89b7a5f3edb756303</msg>
+<msg timestamp="20200728 11:41:08.022" level="INFO">${sign} = 54c10ce7f8be66ded1632fc89b7a5f3edb756303</msg>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<kw name="Str" library="Str">
+<arguments>
+<arg>${event}</arg>
+<arg>${score}</arg>
+</arguments>
+<assign>
+<var>${info}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.022" level="INFO">{msEvent:"系统扣减",msMemo:"积分扣除测试",msScore:"1"}</msg>
+<msg timestamp="20200728 11:41:08.022" level="INFO">${info} = {msEvent:"系统扣减",msMemo:"积分扣除测试",msScore:"1"}</msg>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>info</arg>
+<arg>${info}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.022" level="INFO">${bodyData} = {'eType': '0', 'member': '494', 'time': '1595907668022', 'sign': '54c10ce7f8be66ded1632fc89b7a5f3edb756303', 'info': '{msEvent:"系统扣减",msMemo:"积分扣除测试",msScore:"1"}', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.022"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${CONVERT_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.085" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ path_url=/app_if/amuc/api/event/convert?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907667133', 'authtoken': '5530f6475dbd46039e94d422ef5c2585', 'sign': '62a48a803f6df4ee318a4e7f4063fbb6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=83fa19479bbc023332; HWWAFSESTIME=1595907663508', 'Content-Length': '248'} 
+ body=eType=0&amp;member=494&amp;time=1595907668022&amp;sign=54c10ce7f8be66ded1632fc89b7a5f3edb756303&amp;info=%7BmsEvent%3A%22%E7%B3%BB%E7%BB%9F%E6%89%A3%E5%87%8F%22%2CmsMemo%3A%22%E7%A7%AF%E5%88%86%E6%89%A3%E9%99%A4%E6%B5%8B%E8%AF%95%22%2CmsScore%3A%221%22%7D&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:08.085" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"code":"1011","msg":"用户不存在"}} 
+ </msg>
+<msg timestamp="20200728 11:41:08.085" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:08.086" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:08.086" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:08.086" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:08.086" level="INFO">    "code": "1011",</msg>
+<msg timestamp="20200728 11:41:08.086" level="INFO">    "msg": "用户不存在"</msg>
+<msg timestamp="20200728 11:41:08.086" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:08.086" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:08.022" endtime="20200728 11:41:08.086"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.086" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A4D8&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:08.086" endtime="20200728 11:41:08.086"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.087" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A4D8&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:08.087" endtime="20200728 11:41:08.087"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:08.012" endtime="20200728 11:41:08.087"></status>
+</kw>
+<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi response status code should be 0 (means success)</doc>
+<status status="PASS" starttime="20200728 11:41:08.088" endtime="20200728 11:41:08.088"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.code}</arg>
+<arg>${CODE0}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.089" level="FAIL">1011 != 1004</msg>
+<status status="FAIL" starttime="20200728 11:41:08.089" endtime="20200728 11:41:08.089"></status>
+</kw>
+<tags>
+<tag>作者：黄羽</tag>
+<tag>冒烟-新福建</tag>
+<tag>积分扣减/积分管理（孙安）</tag>
+</tags>
+<status status="FAIL" starttime="20200728 11:41:08.012" endtime="20200728 11:41:08.090" critical="yes">1011 != 1004</status>
+</test>
+<test id="s1-s1-t4" name="当前会员积分值小于扣减所需积分，扣减失败">
+<kw name="Convert" library="ScoreManagerCommon">
+<doc>积分扣减</doc>
+<arguments>
+<arg>${ETYPE0}</arg>
+<arg>${EVENT0}</arg>
+<arg>${SCORE1}</arg>
+<arg>${MEMBER}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.113" level="INFO">${time} = 1595907668113</msg>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.113" level="INFO">${typetime} = 1595907668113</msg>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<msg timestamp="20200728 11:41:08.113" level="INFO">${time} = 1595907668113</msg>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.113" level="INFO">d3386cc69206b40dee0eff9335dcc34f0e8cb416</msg>
+<msg timestamp="20200728 11:41:08.113" level="INFO">${sign} = d3386cc69206b40dee0eff9335dcc34f0e8cb416</msg>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<kw name="Str" library="Str">
+<arguments>
+<arg>${event}</arg>
+<arg>${score}</arg>
+</arguments>
+<assign>
+<var>${info}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.113" level="INFO">{msEvent:"积分兑换",msMemo:"积分扣除测试",msScore:"20000"}</msg>
+<msg timestamp="20200728 11:41:08.113" level="INFO">${info} = {msEvent:"积分兑换",msMemo:"积分扣除测试",msScore:"20000"}</msg>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/x-www-form-urlencoded</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>info</arg>
+<arg>${info}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.113" level="INFO">${bodyData} = {'eType': '3', 'member': '494', 'time': '1595907668113', 'sign': 'd3386cc69206b40dee0eff9335dcc34f0e8cb416', 'info': '{msEvent:"积分兑换",msMemo:"积分扣除测试",msScore:"20000"}', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.113"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${CONVERT_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.179" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ path_url=/app_if/amuc/api/event/convert?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907667133', 'authtoken': '5530f6475dbd46039e94d422ef5c2585', 'sign': '62a48a803f6df4ee318a4e7f4063fbb6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=83fa19479bbc023332; HWWAFSESTIME=1595907663508', 'Content-Length': '252'} 
+ body=eType=3&amp;member=494&amp;time=1595907668113&amp;sign=d3386cc69206b40dee0eff9335dcc34f0e8cb416&amp;info=%7BmsEvent%3A%22%E7%A7%AF%E5%88%86%E5%85%91%E6%8D%A2%22%2CmsMemo%3A%22%E7%A7%AF%E5%88%86%E6%89%A3%E9%99%A4%E6%B5%8B%E8%AF%95%22%2CmsScore%3A%2220000%22%7D&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:08.179" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/convert?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"code":"1011","msg":"用户不存在"}} 
+ </msg>
+<msg timestamp="20200728 11:41:08.179" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:08.179" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:08.179" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:08.179" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:08.180" level="INFO">    "code": "1011",</msg>
+<msg timestamp="20200728 11:41:08.180" level="INFO">    "msg": "用户不存在"</msg>
+<msg timestamp="20200728 11:41:08.180" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:08.180" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:08.113" endtime="20200728 11:41:08.180"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.180" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0408E298&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:08.180" endtime="20200728 11:41:08.180"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.181" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0408E298&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:08.180" endtime="20200728 11:41:08.181"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:08.103" endtime="20200728 11:41:08.181"></status>
+</kw>
+<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi response status code should be 0 (means success)</doc>
+<status status="PASS" starttime="20200728 11:41:08.182" endtime="20200728 11:41:08.182"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.code}</arg>
+<arg>${CODE1}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.183" level="FAIL">1011 != 1001</msg>
+<status status="FAIL" starttime="20200728 11:41:08.182" endtime="20200728 11:41:08.183"></status>
+</kw>
+<tags>
+<tag>作者：黄羽</tag>
+<tag>冒烟-新福建</tag>
+<tag>积分扣减/积分管理（孙安）</tag>
+</tags>
+<status status="FAIL" starttime="20200728 11:41:08.103" endtime="20200728 11:41:08.183" critical="yes">1011 != 1001</status>
+</test>
+<kw name="Fapi Delete All Sessions" library="FATL.FapiKeywords" type="teardown">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20200728 11:41:08.186" level="INFO">Delete All Sessions</msg>
+<status status="PASS" starttime="20200728 11:41:08.185" endtime="20200728 11:41:08.186"></status>
+</kw>
+<doc>积分扣减</doc>
+<status status="FAIL" starttime="20200728 11:41:05.593" endtime="20200728 11:41:08.186"></status>
+</suite>
+<suite id="s1-s2" name="Event1" source="D:\jiangbm\XFJ\API\APP_ScoreManager\Event1.robot">
+<kw name="Create Session Common" library="Common" type="setup">
+<kw name="Fapi Create Session" library="FATL.FapiKeywords">
+<doc>Fapi Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${APPIF_URL}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:08.244" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1', 'time': '1595907667133', 'authtoken': '5530f6475dbd46039e94d422ef5c2585', 'sign': '62a48a803f6df4ee318a4e7f4063fbb6', 'Content-Type': 'application/x-www-form-urlencoded'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200728 11:41:08.244" endtime="20200728 11:41:08.244"></status>
+</kw>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.872" level="INFO">${secretinfo} = {'authtoken': '11fae9265a15467cb74d89b22942a03b', 'time': '1595907668244', 'sign': '95faf343c47627176fecd91d238fe7d6'}</msg>
+<status status="PASS" starttime="20200728 11:41:08.244" endtime="20200728 11:41:08.873"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.876" level="INFO">${token} = 11fae9265a15467cb74d89b22942a03b</msg>
+<status status="PASS" starttime="20200728 11:41:08.874" endtime="20200728 11:41:08.876"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.878" level="INFO">${time} = 1595907668244</msg>
+<status status="PASS" starttime="20200728 11:41:08.877" endtime="20200728 11:41:08.878"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.881" level="INFO">${sign} = 95faf343c47627176fecd91d238fe7d6</msg>
+<status status="PASS" starttime="20200728 11:41:08.879" endtime="20200728 11:41:08.881"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${token}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:08.882" endtime="20200728 11:41:08.884"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:08.244" endtime="20200728 11:41:08.884"></status>
+</kw>
+<test id="s1-s2-t1" name="APP首次安装注册成功后获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE1}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.901" level="INFO">${time} = 1595907668901</msg>
+<status status="PASS" starttime="20200728 11:41:08.901" endtime="20200728 11:41:08.902"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.903" level="INFO">${typetime} = 1595907668901</msg>
+<status status="PASS" starttime="20200728 11:41:08.903" endtime="20200728 11:41:08.903"></status>
+</kw>
+<msg timestamp="20200728 11:41:08.903" level="INFO">${time} = 1595907668901</msg>
+<status status="PASS" starttime="20200728 11:41:08.900" endtime="20200728 11:41:08.903"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.903" level="INFO">0c5f5f9a74692aaa15174b906d589da9083607d9</msg>
+<msg timestamp="20200728 11:41:08.903" level="INFO">${sign} = 0c5f5f9a74692aaa15174b906d589da9083607d9</msg>
+<status status="PASS" starttime="20200728 11:41:08.903" endtime="20200728 11:41:08.903"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:08.903" endtime="20200728 11:41:08.903"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:08.903" level="INFO">${bodyData} = {'eType': '安装注册', 'member': '3970732', 'time': '1595907668901', 'sign': '0c5f5f9a74692aaa15174b906d589da9083607d9', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:08.903" endtime="20200728 11:41:08.903"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:10.158" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Content-Length': '131'} 
+ body=eType=%E5%AE%89%E8%A3%85%E6%B3%A8%E5%86%8C&amp;member=3970732&amp;time=1595907668901&amp;sign=0c5f5f9a74692aaa15174b906d589da9083607d9&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:10.158" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"安装注册","eStartTime":"2020/07/28 11:41:10","code":"1002","result":[{"msg":"计算积分失败,超出积分规则计分次数","score":-1,"code":"1003","srname":"首次安装注册"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:10.160" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:10.160" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:10.160" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:10.160" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">    "eType": "安装注册",</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">    "eStartTime": "2020/07/28 11:41:10",</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">        "msg": "计算积分失败,超出积分规则计分次数",</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">        "score": -1,</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">        "code": "1003",</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">        "srname": "首次安装注册"</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:10.161" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:08.903" endtime="20200728 11:41:10.162"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:10.163" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405AA18&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:10.162" endtime="20200728 11:41:10.163"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:10.166" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405AA18&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:10.163" endtime="20200728 11:41:10.166"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:08.899" endtime="20200728 11:41:10.166"></status>
+</kw>
+<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi response status code should be 0 (means success)</doc>
+<status status="PASS" starttime="20200728 11:41:10.167" endtime="20200728 11:41:10.168"></status>
+</kw>
+<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
+<doc>Fapi HTTP response code should be 200 (means success)</doc>
+<msg timestamp="20200728 11:41:10.169" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200728 11:41:10.169" endtime="20200728 11:41:10.170"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:10.172" level="FAIL">计算积分失败,超出积分规则计分次数 != 计算积分成功</msg>
+<status status="FAIL" starttime="20200728 11:41:10.171" endtime="20200728 11:41:10.172"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="FAIL" starttime="20200728 11:41:08.885" endtime="20200728 11:41:10.173" critical="yes">计算积分失败,超出积分规则计分次数 != 计算积分成功</status>
+</test>
+<test id="s1-s2-t2" name="APP非首次安装注册成功后获取积分，接口返回计算积分成功">
+<kw name="Sleep" library="BuiltIn">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>5</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.188" level="INFO">Slept 5 seconds</msg>
+<status status="PASS" starttime="20200728 11:41:10.185" endtime="20200728 11:41:15.188"></status>
+</kw>
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE1}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.189" level="INFO">${time} = 1595907675189</msg>
+<status status="PASS" starttime="20200728 11:41:15.189" endtime="20200728 11:41:15.190"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.190" level="INFO">${typetime} = 1595907675189</msg>
+<status status="PASS" starttime="20200728 11:41:15.190" endtime="20200728 11:41:15.190"></status>
+</kw>
+<msg timestamp="20200728 11:41:15.190" level="INFO">${time} = 1595907675189</msg>
+<status status="PASS" starttime="20200728 11:41:15.189" endtime="20200728 11:41:15.190"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.191" level="INFO">253b928060cb25a7bb785eeb362846bc48efc41d</msg>
+<msg timestamp="20200728 11:41:15.191" level="INFO">${sign} = 253b928060cb25a7bb785eeb362846bc48efc41d</msg>
+<status status="PASS" starttime="20200728 11:41:15.190" endtime="20200728 11:41:15.191"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.191" endtime="20200728 11:41:15.191"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.192" level="INFO">${bodyData} = {'eType': '安装注册', 'member': '3970732', 'time': '1595907675189', 'sign': '253b928060cb25a7bb785eeb362846bc48efc41d', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:15.191" endtime="20200728 11:41:15.192"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.315" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '131'} 
+ body=eType=%E5%AE%89%E8%A3%85%E6%B3%A8%E5%86%8C&amp;member=3970732&amp;time=1595907675189&amp;sign=253b928060cb25a7bb785eeb362846bc48efc41d&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"安装注册","eStartTime":"2020/07/28 11:41:15","code":"1002","result":[{"msg":"计算积分失败,超出积分规则计分次数","score":-1,"code":"1003","srname":"首次安装注册"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">    "eType": "安装注册",</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">    "eStartTime": "2020/07/28 11:41:15",</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">        "msg": "计算积分失败,超出积分规则计分次数",</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">        "score": -1,</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">        "code": "1003",</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">        "srname": "首次安装注册"</msg>
+<msg timestamp="20200728 11:41:15.315" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:15.325" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:15.325" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:15.325" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:15.192" endtime="20200728 11:41:15.325"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.325" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x034DB610&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.325" endtime="20200728 11:41:15.325"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.325" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x034DB610&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.325" endtime="20200728 11:41:15.325"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:15.188" endtime="20200728 11:41:15.325"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT1}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.325" endtime="20200728 11:41:15.325"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:10.177" endtime="20200728 11:41:15.325" critical="yes"></status>
+</test>
+<test id="s1-s2-t3" name="APP邀请用户注册获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE2}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.355" level="INFO">${time} = 1595907675354</msg>
+<status status="PASS" starttime="20200728 11:41:15.355" endtime="20200728 11:41:15.355"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.355" level="INFO">${typetime} = 1595907675354</msg>
+<status status="PASS" starttime="20200728 11:41:15.355" endtime="20200728 11:41:15.355"></status>
+</kw>
+<msg timestamp="20200728 11:41:15.355" level="INFO">${time} = 1595907675354</msg>
+<status status="PASS" starttime="20200728 11:41:15.345" endtime="20200728 11:41:15.355"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.355" level="INFO">50c71a0e71b2ce333b71e1021e471ddaea340c66</msg>
+<msg timestamp="20200728 11:41:15.355" level="INFO">${sign} = 50c71a0e71b2ce333b71e1021e471ddaea340c66</msg>
+<status status="PASS" starttime="20200728 11:41:15.355" endtime="20200728 11:41:15.355"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.355" endtime="20200728 11:41:15.355"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.365" level="INFO">${bodyData} = {'eType': '邀请', 'member': '3970732', 'time': '1595907675354', 'sign': '50c71a0e71b2ce333b71e1021e471ddaea340c66', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:15.355" endtime="20200728 11:41:15.365"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.515" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '113'} 
+ body=eType=%E9%82%80%E8%AF%B7&amp;member=3970732&amp;time=1595907675354&amp;sign=50c71a0e71b2ce333b71e1021e471ddaea340c66&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"邀请","eStartTime":"2020/07/28 11:41:16","code":"1002","result":[{"msg":"计算积分成功","score":10,"code":"1004","srname":"邀请好友注册"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">    "eType": "邀请",</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">    "eStartTime": "2020/07/28 11:41:16",</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">        "msg": "计算积分成功",</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">        "score": 10,</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">        "code": "1004",</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">        "srname": "邀请好友注册"</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:15.365" endtime="20200728 11:41:15.515"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.515" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0408E118&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.515"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.515" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0408E118&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.515"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:15.345" endtime="20200728 11:41:15.515"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.515"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:15.335" endtime="20200728 11:41:15.515" critical="yes"></status>
+</test>
+<test id="s1-s2-t4" name="APP点击新闻获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE3}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.515" level="INFO">${time} = 1595907675515</msg>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.515"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.515" level="INFO">${typetime} = 1595907675515</msg>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.515"></status>
+</kw>
+<msg timestamp="20200728 11:41:15.515" level="INFO">${time} = 1595907675515</msg>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.515"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.515" level="INFO">d60cab99edb8b764808441be98fb59be39fd0e24</msg>
+<msg timestamp="20200728 11:41:15.515" level="INFO">${sign} = d60cab99edb8b764808441be98fb59be39fd0e24</msg>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.515"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.525" endtime="20200728 11:41:15.525"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.525" level="INFO">${bodyData} = {'eType': '点击新闻', 'member': '3970732', 'time': '1595907675515', 'sign': 'd60cab99edb8b764808441be98fb59be39fd0e24', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:15.525" endtime="20200728 11:41:15.525"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.658" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '131'} 
+ body=eType=%E7%82%B9%E5%87%BB%E6%96%B0%E9%97%BB&amp;member=3970732&amp;time=1595907675515&amp;sign=d60cab99edb8b764808441be98fb59be39fd0e24&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"点击新闻","eStartTime":"2020/07/28 11:41:16","code":"1002","result":[{"msg":"计算积分成功","score":1,"code":"1004","srname":"阅读文章（含组图）"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">    "eType": "点击新闻",</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">    "eStartTime": "2020/07/28 11:41:16",</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">        "msg": "计算积分成功",</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">        "score": 1,</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">        "code": "1004",</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">        "srname": "阅读文章（含组图）"</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:15.658" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:15.525" endtime="20200728 11:41:15.658"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.658" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x034D0148&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.658" endtime="20200728 11:41:15.668"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.668" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x034D0148&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.668" endtime="20200728 11:41:15.668"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.668"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.668" endtime="20200728 11:41:15.675"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:15.515" endtime="20200728 11:41:15.677" critical="yes"></status>
+</test>
+<test id="s1-s2-t5" name="APP分享新闻成功后获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE4}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.707" level="INFO">${time} = 1595907675707</msg>
+<status status="PASS" starttime="20200728 11:41:15.707" endtime="20200728 11:41:15.707"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.707" level="INFO">${typetime} = 1595907675707</msg>
+<status status="PASS" starttime="20200728 11:41:15.707" endtime="20200728 11:41:15.707"></status>
+</kw>
+<msg timestamp="20200728 11:41:15.707" level="INFO">${time} = 1595907675707</msg>
+<status status="PASS" starttime="20200728 11:41:15.707" endtime="20200728 11:41:15.707"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.707" level="INFO">a70d812bd777d031e6b6217a67c414d218b34b63</msg>
+<msg timestamp="20200728 11:41:15.707" level="INFO">${sign} = a70d812bd777d031e6b6217a67c414d218b34b63</msg>
+<status status="PASS" starttime="20200728 11:41:15.707" endtime="20200728 11:41:15.707"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.707" endtime="20200728 11:41:15.707"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.717" level="INFO">${bodyData} = {'eType': '分享成功', 'member': '3970732', 'time': '1595907675707', 'sign': 'a70d812bd777d031e6b6217a67c414d218b34b63', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:15.707" endtime="20200728 11:41:15.717"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.866" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '131'} 
+ body=eType=%E5%88%86%E4%BA%AB%E6%88%90%E5%8A%9F&amp;member=3970732&amp;time=1595907675707&amp;sign=a70d812bd777d031e6b6217a67c414d218b34b63&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:15.866" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"分享成功","eStartTime":"2020/07/28 11:41:16","code":"1002","result":[{"msg":"计算积分成功","score":1,"code":"1004","srname":"分享"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">    "eType": "分享成功",</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">    "eStartTime": "2020/07/28 11:41:16",</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">        "msg": "计算积分成功",</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">        "score": 1,</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">        "code": "1004",</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">        "srname": "分享"</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:15.867" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:15.868" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:15.868" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:15.717" endtime="20200728 11:41:15.868"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.869" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A4A8&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.868" endtime="20200728 11:41:15.869"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:15.870" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A4A8&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:15.869" endtime="20200728 11:41:15.870"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:15.707" endtime="20200728 11:41:15.871"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.872" endtime="20200728 11:41:15.872"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:15.685" endtime="20200728 11:41:15.873" critical="yes"></status>
+</test>
+<test id="s1-s2-t6" name="APP提交评论后获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE5}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.884" level="INFO">${time} = 1595907675884</msg>
+<status status="PASS" starttime="20200728 11:41:15.883" endtime="20200728 11:41:15.884"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.885" level="INFO">${typetime} = 1595907675884</msg>
+<status status="PASS" starttime="20200728 11:41:15.884" endtime="20200728 11:41:15.885"></status>
+</kw>
+<msg timestamp="20200728 11:41:15.886" level="INFO">${time} = 1595907675884</msg>
+<status status="PASS" starttime="20200728 11:41:15.883" endtime="20200728 11:41:15.886"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.887" level="INFO">1b7cb4a03e4a2477d66fb255e23ad286a3e0764d</msg>
+<msg timestamp="20200728 11:41:15.887" level="INFO">${sign} = 1b7cb4a03e4a2477d66fb255e23ad286a3e0764d</msg>
+<status status="PASS" starttime="20200728 11:41:15.886" endtime="20200728 11:41:15.887"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:15.887" endtime="20200728 11:41:15.887"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:15.888" level="INFO">${bodyData} = {'eType': '提交评论', 'member': '3970732', 'time': '1595907675884', 'sign': '1b7cb4a03e4a2477d66fb255e23ad286a3e0764d', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:15.887" endtime="20200728 11:41:15.889"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.025" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '131'} 
+ body=eType=%E6%8F%90%E4%BA%A4%E8%AF%84%E8%AE%BA&amp;member=3970732&amp;time=1595907675884&amp;sign=1b7cb4a03e4a2477d66fb255e23ad286a3e0764d&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"提交评论","eStartTime":"2020/07/28 11:41:16","code":"1002","result":[{"msg":"计算积分成功","score":5,"code":"1004","srname":"评论新闻"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">    "eType": "提交评论",</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">    "eStartTime": "2020/07/28 11:41:16",</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">        "msg": "计算积分成功",</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">        "score": 5,</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">        "code": "1004",</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">        "srname": "评论新闻"</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:16.025" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:15.889" endtime="20200728 11:41:16.025"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.025" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x02D9BEE0&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.025" endtime="20200728 11:41:16.025"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.025" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x02D9BEE0&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.025" endtime="20200728 11:41:16.025"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:15.882" endtime="20200728 11:41:16.025"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:16.025" endtime="20200728 11:41:16.035"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:15.876" endtime="20200728 11:41:16.035" critical="yes"></status>
+</test>
+<test id="s1-s2-t7" name="APP初次快速登录后获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE6}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.035" level="INFO">${time} = 1595907676035</msg>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.035"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.035" level="INFO">${typetime} = 1595907676035</msg>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.035"></status>
+</kw>
+<msg timestamp="20200728 11:41:16.035" level="INFO">${time} = 1595907676035</msg>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.035"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.035" level="INFO">3f59b2135391f15e412aa423668ce4c5f9e493c5</msg>
+<msg timestamp="20200728 11:41:16.035" level="INFO">${sign} = 3f59b2135391f15e412aa423668ce4c5f9e493c5</msg>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.035"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.035"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.035" level="INFO">${bodyData} = {'eType': '初次快速登录', 'member': '3970732', 'time': '1595907676035', 'sign': '3f59b2135391f15e412aa423668ce4c5f9e493c5', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.035"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.185" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '149'} 
+ body=eType=%E5%88%9D%E6%AC%A1%E5%BF%AB%E9%80%9F%E7%99%BB%E5%BD%95&amp;member=3970732&amp;time=1595907676035&amp;sign=3f59b2135391f15e412aa423668ce4c5f9e493c5&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:16.186" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"初次快速登录","eStartTime":"2020/07/28 11:41:16","code":"1002","result":[{"msg":"计算积分成功","score":2,"code":"1004","srname":"每日登录"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">    "eType": "初次快速登录",</msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">    "eStartTime": "2020/07/28 11:41:16",</msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:16.187" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:16.188" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:16.188" level="INFO">        "msg": "计算积分成功",</msg>
+<msg timestamp="20200728 11:41:16.188" level="INFO">        "score": 2,</msg>
+<msg timestamp="20200728 11:41:16.188" level="INFO">        "code": "1004",</msg>
+<msg timestamp="20200728 11:41:16.189" level="INFO">        "srname": "每日登录"</msg>
+<msg timestamp="20200728 11:41:16.189" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:16.189" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:16.190" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:16.190" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.190"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.193" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x040A2B80&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.191" endtime="20200728 11:41:16.193"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.195" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x040A2B80&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.194" endtime="20200728 11:41:16.195"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.195"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:16.196" endtime="20200728 11:41:16.197"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:16.035" endtime="20200728 11:41:16.198" critical="yes"></status>
+</test>
+<test id="s1-s2-t8" name="APP播放视频后获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE7}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.207" level="INFO">${time} = 1595907676207</msg>
+<status status="PASS" starttime="20200728 11:41:16.207" endtime="20200728 11:41:16.207"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.207" level="INFO">${typetime} = 1595907676207</msg>
+<status status="PASS" starttime="20200728 11:41:16.207" endtime="20200728 11:41:16.207"></status>
+</kw>
+<msg timestamp="20200728 11:41:16.207" level="INFO">${time} = 1595907676207</msg>
+<status status="PASS" starttime="20200728 11:41:16.207" endtime="20200728 11:41:16.207"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.207" level="INFO">6e30997fbc230e2509809438b2e294e4c0de9b9d</msg>
+<msg timestamp="20200728 11:41:16.207" level="INFO">${sign} = 6e30997fbc230e2509809438b2e294e4c0de9b9d</msg>
+<status status="PASS" starttime="20200728 11:41:16.207" endtime="20200728 11:41:16.217"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:16.217" endtime="20200728 11:41:16.217"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.217" level="INFO">${bodyData} = {'eType': '播放视频稿件', 'member': '3970732', 'time': '1595907676207', 'sign': '6e30997fbc230e2509809438b2e294e4c0de9b9d', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:16.217" endtime="20200728 11:41:16.217"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.388" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '149'} 
+ body=eType=%E6%92%AD%E6%94%BE%E8%A7%86%E9%A2%91%E7%A8%BF%E4%BB%B6&amp;member=3970732&amp;time=1595907676207&amp;sign=6e30997fbc230e2509809438b2e294e4c0de9b9d&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:16.388" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"播放视频稿件","eStartTime":"2020/07/28 11:41:16","code":"1002","result":[{"msg":"计算积分成功","score":1,"code":"1004","srname":"播放音视频（含直播）"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">    "eType": "播放视频稿件",</msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">    "eStartTime": "2020/07/28 11:41:16",</msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:16.389" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:16.390" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:16.390" level="INFO">        "msg": "计算积分成功",</msg>
+<msg timestamp="20200728 11:41:16.390" level="INFO">        "score": 1,</msg>
+<msg timestamp="20200728 11:41:16.390" level="INFO">        "code": "1004",</msg>
+<msg timestamp="20200728 11:41:16.390" level="INFO">        "srname": "播放音视频（含直播）"</msg>
+<msg timestamp="20200728 11:41:16.390" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:16.390" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:16.391" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:16.391" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:16.217" endtime="20200728 11:41:16.392"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.392" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x040A2400&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.392" endtime="20200728 11:41:16.392"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.392" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x040A2400&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.392" endtime="20200728 11:41:16.392"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:16.207" endtime="20200728 11:41:16.392"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:16.392" endtime="20200728 11:41:16.392"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:16.202" endtime="20200728 11:41:16.392" critical="yes"></status>
+</test>
+<test id="s1-s2-t9" name="APP关注订阅号后获取积分，接口返回计算积分成功">
+<kw name="Event1" library="ScoreManagerCommon">
+<doc>积分行为入库</doc>
+<arguments>
+<arg>${ETYPE8}</arg>
+</arguments>
+<kw name="Time" library="Random_Time">
+<assign>
+<var>${time}</var>
+</assign>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>int(time.time()*1000)</arg>
+<arg>time</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.412" level="INFO">${time} = 1595907676411</msg>
+<status status="PASS" starttime="20200728 11:41:16.412" endtime="20200728 11:41:16.412"></status>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<arguments>
+<arg>str(${time})</arg>
+</arguments>
+<assign>
+<var>${typetime}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.412" level="INFO">${typetime} = 1595907676411</msg>
+<status status="PASS" starttime="20200728 11:41:16.412" endtime="20200728 11:41:16.412"></status>
+</kw>
+<msg timestamp="20200728 11:41:16.412" level="INFO">${time} = 1595907676411</msg>
+<status status="PASS" starttime="20200728 11:41:16.412" endtime="20200728 11:41:16.412"></status>
+</kw>
+<kw name="Sha" library="Sha1">
+<doc>使用sha1加密算法，返回str加密后的字符串</doc>
+<arguments>
+<arg>${etype}</arg>
+<arg>${member}</arg>
+<arg>${time}</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.422" level="INFO">78e354257686f21f54ccb375e8b2d7a61d24b676</msg>
+<msg timestamp="20200728 11:41:16.422" level="INFO">${sign} = 78e354257686f21f54ccb375e8b2d7a61d24b676</msg>
+<status status="PASS" starttime="20200728 11:41:16.412" endtime="20200728 11:41:16.422"></status>
+</kw>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:16.422" endtime="20200728 11:41:16.422"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>eType</arg>
+<arg>${etype}</arg>
+<arg>member</arg>
+<arg>${member}</arg>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+<arg>siteID</arg>
+<arg>${siteid}</arg>
+</arguments>
+<assign>
+<var>${bodyData}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.422" level="INFO">${bodyData} = {'eType': '关注订阅号', 'member': '3970732', 'time': '1595907676411', 'sign': '78e354257686f21f54ccb375e8b2d7a61d24b676', 'siteID': '1'}</msg>
+<status status="PASS" starttime="20200728 11:41:16.422" endtime="20200728 11:41:16.422"></status>
+</kw>
+<kw name="Fapi Post" library="FATL.FapiKeywords">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENT1_URI}</arg>
+<arg>data=${bodyData}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.559" level="INFO">POST Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ path_url=/app_if/amuc/api/event/event1?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=68c287f9b5544d30ea; HWWAFSESTIME=1595907668979', 'Content-Length': '140'} 
+ body=eType=%E5%85%B3%E6%B3%A8%E8%AE%A2%E9%98%85%E5%8F%B7&amp;member=3970732&amp;time=1595907676411&amp;sign=78e354257686f21f54ccb375e8b2d7a61d24b676&amp;siteID=1 
+ </msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">POST Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/event1?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":{"eType":"关注订阅号","eStartTime":"2020/07/28 11:41:17","code":"1002","result":[{"msg":"计算积分成功","score":1,"code":"1004","srname":"订阅"}]}} 
+ </msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">  "data": {</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">    "eType": "关注订阅号",</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">    "eStartTime": "2020/07/28 11:41:17",</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">    "code": "1002",</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">    "result": [</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">      {</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">        "msg": "计算积分成功",</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">        "score": 1,</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">        "code": "1004",</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">        "srname": "订阅"</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">      }</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">    ]</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">  }</msg>
+<msg timestamp="20200728 11:41:16.559" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:16.422" endtime="20200728 11:41:16.559"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:16.559" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A328&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.559" endtime="20200728 11:41:16.559"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.559" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x0405A328&gt;</msg>
+<status status="PASS" starttime="20200728 11:41:16.559" endtime="20200728 11:41:16.559"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:16.412" endtime="20200728 11:41:16.559"></status>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data.result[0].msg}</arg>
+<arg>${RESULT0}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:16.559" endtime="20200728 11:41:16.559"></status>
+</kw>
+<tags>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>积分行为入库/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:16.402" endtime="20200728 11:41:16.559" critical="yes"></status>
+</test>
+<kw name="Fapi Delete All Sessions" library="FATL.FapiKeywords" type="teardown">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20200728 11:41:16.569" level="INFO">Delete All Sessions</msg>
+<status status="PASS" starttime="20200728 11:41:16.559" endtime="20200728 11:41:16.569"></status>
+</kw>
+<doc>积分行为入库</doc>
+<status status="FAIL" starttime="20200728 11:41:08.188" endtime="20200728 11:41:16.569"></status>
+</suite>
+<suite id="s1-s3" name="EventTypes" source="D:\jiangbm\XFJ\API\APP_ScoreManager\EventTypes.robot">
+<kw name="Create Session Common" library="Common" type="setup">
+<kw name="Fapi Create Session" library="FATL.FapiKeywords">
+<doc>Fapi Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${APPIF_URL}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:16.659" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1', 'time': '1595907668244', 'authtoken': '11fae9265a15467cb74d89b22942a03b', 'sign': '95faf343c47627176fecd91d238fe7d6', 'Content-Type': 'application/x-www-form-urlencoded'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200728 11:41:16.659" endtime="20200728 11:41:16.659"></status>
+</kw>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200728 11:41:17.728" level="INFO">${secretinfo} = {'authtoken': '694c7d7720124ff08f32de8b1df2ba23', 'time': '1595907676659', 'sign': '08936a3aebcb54564bc889b90e5d1380'}</msg>
+<status status="PASS" starttime="20200728 11:41:16.659" endtime="20200728 11:41:17.728"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20200728 11:41:17.728" level="INFO">${token} = 694c7d7720124ff08f32de8b1df2ba23</msg>
+<status status="PASS" starttime="20200728 11:41:17.728" endtime="20200728 11:41:17.728"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:17.728" level="INFO">${time} = 1595907676659</msg>
+<status status="PASS" starttime="20200728 11:41:17.728" endtime="20200728 11:41:17.728"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:17.728" level="INFO">${sign} = 08936a3aebcb54564bc889b90e5d1380</msg>
+<status status="PASS" starttime="20200728 11:41:17.728" endtime="20200728 11:41:17.728"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${token}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:17.728" endtime="20200728 11:41:17.728"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:16.659" endtime="20200728 11:41:17.738"></status>
+</kw>
+<test id="s1-s3-t1" name="获取积分行为的类型，接口返回所有类型数据">
+<kw name="Event Types" library="ScoreManagerCommon">
+<doc>查看积分行为类型</doc>
+<kw name="Fapi Params Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
+<arguments>
+<arg>curVersions</arg>
+<arg>${CURVERSIONS}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:17.748" endtime="20200728 11:41:17.748"></status>
+</kw>
+<kw name="Fapi Get" library="FATL.FapiKeywords">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${EVENTTYPES_URI}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:17.940" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/amuc/api/event/eventTypes?curVersions=1 
+ path_url=/app_if/amuc/api/event/eventTypes?curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907676659', 'authtoken': '694c7d7720124ff08f32de8b1df2ba23', 'sign': '08936a3aebcb54564bc889b90e5d1380', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=None 
+ </msg>
+<msg timestamp="20200728 11:41:17.950" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/amuc/api/event/eventTypes?curVersions=1 
+ status=200, reason= 
+ body={"status":0,"message":"success","data":"启动,使用,浏览,安装注册,邀请,发布主题,参与主题,连续7天登录,连续15天登录,连续30天登录,分享成功,提交评论,点击新闻,点开数字报按钮,评论审核,启动程序,创建话题,问吧提问,问吧回答,订阅号提问,初次快速登录,初次绑定手机号,关注订阅号,收藏文章,播放视频稿件"} 
+ </msg>
+<msg timestamp="20200728 11:41:17.950" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:17.950" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:17.950" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:17.950" level="INFO">  "data": "启动,使用,浏览,安装注册,邀请,发布主题,参与主题,连续7天登录,连续15天登录,连续30天登录,分享成功,提交评论,点击新闻,点开数字报按钮,评论审核,启动程序,创建话题,问吧提问,问吧回答,订阅号提问,初次快速登录,初次绑定手机号,关注订阅号,收藏文章,播放视频稿件"</msg>
+<msg timestamp="20200728 11:41:17.950" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:17.748" endtime="20200728 11:41:17.950"></status>
+</kw>
+<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
+<doc>Convert Fapi response content to python object</doc>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200728 11:41:17.950" level="INFO">${data} = 启动,使用,浏览,安装注册,邀请,发布主题,参与主题,连续7天登录,连续15天登录,连续30天登录,分享成功,提交评论,点击新闻,点开数字报按钮,评论审核,启动程序,创建话题,问吧提问,问吧回答,订阅号提问,初次快速登录,初次绑定手机号,关注订阅号,收藏文章,播放视频稿件</msg>
+<status status="PASS" starttime="20200728 11:41:17.950" endtime="20200728 11:41:17.950"></status>
+</kw>
+<kw name="Set Suite Variable" library="BuiltIn">
+<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${data}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:17.950" level="INFO">${response_data} = 启动,使用,浏览,安装注册,邀请,发布主题,参与主题,连续7天登录,连续15天登录,连续30天登录,分享成功,提交评论,点击新闻,点开数字报按钮,评论审核,启动程序,创建话题,问吧提问,问吧回答,订阅号提问,初次快速登录,初次绑定手机号,关注订阅号,收藏文章,播放视频稿件</msg>
+<status status="PASS" starttime="20200728 11:41:17.950" endtime="20200728 11:41:17.950"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:17.748" endtime="20200728 11:41:17.950"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${RESULT1}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:17.950" endtime="20200728 11:41:17.950"></status>
+</kw>
+<tags>
+<tag>作者：温怡春</tag>
+<tag>冒烟集-新福建APP</tag>
+<tag>积分行为类型查看/积分管理（孙安）</tag>
+</tags>
+<status status="PASS" starttime="20200728 11:41:17.738" endtime="20200728 11:41:17.950" critical="yes"></status>
+</test>
+<kw name="Fapi Delete All Sessions" library="FATL.FapiKeywords" type="teardown">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20200728 11:41:17.960" level="INFO">Delete All Sessions</msg>
+<status status="PASS" starttime="20200728 11:41:17.950" endtime="20200728 11:41:17.960"></status>
+</kw>
+<doc>积分行为类型查看</doc>
+<status status="PASS" starttime="20200728 11:41:16.599" endtime="20200728 11:41:17.960"></status>
+</suite>
+<suite id="s1-s4" name="Score" source="D:\jiangbm\XFJ\API\APP_ScoreManager\Score.robot">
+<kw name="Create Session Common" library="Common" type="setup">
+<kw name="Fapi Create Session" library="FATL.FapiKeywords">
+<doc>Fapi Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>${APPIF_ALIAS}</arg>
+<arg>${APPIF_URL}</arg>
+</arguments>
+<msg timestamp="20200728 11:41:18.019" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1', 'time': '1595907676659', 'authtoken': '694c7d7720124ff08f32de8b1df2ba23', 'sign': '08936a3aebcb54564bc889b90e5d1380', 'Content-Type': 'application/x-www-form-urlencoded'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<status status="PASS" starttime="20200728 11:41:18.019" endtime="20200728 11:41:18.019"></status>
+</kw>
+<kw name="Sign" library="authen">
+<assign>
+<var>${secretinfo}</var>
+</assign>
+<msg timestamp="20200728 11:41:18.707" level="INFO">${secretinfo} = {'authtoken': '55f83dcacd3448eda86a62a40ab35555', 'time': '1595907678018', 'sign': '6107e286a94a736ca3891761cbec5144'}</msg>
+<status status="PASS" starttime="20200728 11:41:18.019" endtime="20200728 11:41:18.707"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[authtoken]</arg>
+</arguments>
+<assign>
+<var>${token}</var>
+</assign>
+<msg timestamp="20200728 11:41:18.707" level="INFO">${token} = 55f83dcacd3448eda86a62a40ab35555</msg>
+<status status="PASS" starttime="20200728 11:41:18.707" endtime="20200728 11:41:18.707"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[time]</arg>
+</arguments>
+<assign>
+<var>${time}</var>
+</assign>
+<msg timestamp="20200728 11:41:18.707" level="INFO">${time} = 1595907678018</msg>
+<status status="PASS" starttime="20200728 11:41:18.707" endtime="20200728 11:41:18.707"></status>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>${secretinfo}[sign]</arg>
+</arguments>
+<assign>
+<var>${sign}</var>
+</assign>
+<msg timestamp="20200728 11:41:18.718" level="INFO">${sign} = 6107e286a94a736ca3891761cbec5144</msg>
+<status status="PASS" starttime="20200728 11:41:18.707" endtime="20200728 11:41:18.718"></status>
+</kw>
+<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
+<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
+<arguments>
+<arg>time</arg>
+<arg>${time}</arg>
+<arg>authtoken</arg>
+<arg>${token}</arg>
+<arg>sign</arg>
+<arg>${sign}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:18.718" endtime="20200728 11:41:18.718"></status>
+</kw>
+<status status="PASS" starttime="20200728 11:41:18.019" endtime="20200728 11:41:18.718"></status>
+</kw>
+<test id="s1-s4-t1" name="输入的会员id有效时，接口返回当前帐号的积分">
+<kw name="Score" library="ScoreManagerCommon">
+<doc>获取会员当前积分</doc>
 <arguments>
 <arg>${ID0}</arg>
 </arguments>
-<kw name="Sign" library="authen">
-<assign>
-<var>${secretinfo}</var>
-</assign>
-<msg timestamp="20200724 16:55:35.852" level="INFO">${secretinfo} = {'authtoken': '0045080aab5f4f81b8a8c8dd7c1a9b4a', 'time': '1595580935089', 'sign': 'cbe0afc5bf928f7f177bddbcf5dafb77'}</msg>
-<status status="PASS" starttime="20200724 16:55:35.089" endtime="20200724 16:55:35.852"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[authtoken]</arg>
-</arguments>
-<assign>
-<var>${authtoken}</var>
-</assign>
-<msg timestamp="20200724 16:55:35.853" level="INFO">${authtoken} = 0045080aab5f4f81b8a8c8dd7c1a9b4a</msg>
-<status status="PASS" starttime="20200724 16:55:35.852" endtime="20200724 16:55:35.853"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[time]</arg>
-</arguments>
-<assign>
-<var>${time}</var>
-</assign>
-<msg timestamp="20200724 16:55:35.853" level="INFO">${time} = 1595580935089</msg>
-<status status="PASS" starttime="20200724 16:55:35.853" endtime="20200724 16:55:35.853"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[sign]</arg>
-</arguments>
-<assign>
-<var>${sign}</var>
-</assign>
-<msg timestamp="20200724 16:55:35.853" level="INFO">${sign} = cbe0afc5bf928f7f177bddbcf5dafb77</msg>
-<status status="PASS" starttime="20200724 16:55:35.853" endtime="20200724 16:55:35.853"></status>
-</kw>
-<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
-<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
-<arguments>
-<arg>sign</arg>
-<arg>${sign}</arg>
-<arg>time</arg>
-<arg>${time}</arg>
-<arg>authtoken</arg>
-<arg>${authtoken}</arg>
-</arguments>
-<status status="PASS" starttime="20200724 16:55:35.854" endtime="20200724 16:55:35.854"></status>
-</kw>
 <kw name="Fapi Params Set" library="FATL.FapiKeywords">
 <doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
 <arguments>
-<arg>columnId</arg>
-<arg>${columnid}</arg>
-<arg>siteId</arg>
-<arg>${siteid}</arg>
+<arg>id</arg>
+<arg>${id}</arg>
 <arg>curVersions</arg>
 <arg>${CURVERSIONS}</arg>
 </arguments>
-<status status="PASS" starttime="20200724 16:55:35.854" endtime="20200724 16:55:35.854"></status>
+<status status="PASS" starttime="20200728 11:41:18.738" endtime="20200728 11:41:18.738"></status>
 </kw>
 <kw name="Fapi Get" library="FATL.FapiKeywords">
 <doc>Send a GET request on the session object found using the
 given `alias`</doc>
 <arguments>
 <arg>${APPIF_ALIAS}</arg>
-<arg>${GETLIVEARTICLES_URI}</arg>
+<arg>${SCORE_URI}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:36.176" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/getLiveArticles?columnId=16&amp;siteId=1&amp;curVersions=1 
- path_url=/app_if/getLiveArticles?columnId=16&amp;siteId=1&amp;curVersions=1 
- headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': 'cbe0afc5bf928f7f177bddbcf5dafb77', 'time': '1595580935089', 'authtoken': '0045080aab5f4f81b8a8c8dd7c1a9b4a'} 
+<msg timestamp="20200728 11:41:18.927" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/amuc/api/member/score?id=3970732&amp;curVersions=1 
+ path_url=/app_if/amuc/api/member/score?id=3970732&amp;curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907678018', 'authtoken': '55f83dcacd3448eda86a62a40ab35555', 'sign': '6107e286a94a736ca3891761cbec5144', 'Content-Type': 'application/x-www-form-urlencoded'} 
  body=None 
  </msg>
-<msg timestamp="20200724 16:55:36.176" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/getLiveArticles?columnId=16&amp;siteId=1&amp;curVersions=1 
+<msg timestamp="20200728 11:41:18.927" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/amuc/api/member/score?id=3970732&amp;curVersions=1 
  status=200, reason= 
- body={"status":0,"message":"success","data":{"list":[]}} 
+ body={"status":0,"message":"success","data":"325"} 
  </msg>
-<msg timestamp="20200724 16:55:36.177" level="INFO">JSON string is : {</msg>
-<msg timestamp="20200724 16:55:36.177" level="INFO">  "status": 0,</msg>
-<msg timestamp="20200724 16:55:36.177" level="INFO">  "message": "success",</msg>
-<msg timestamp="20200724 16:55:36.177" level="INFO">  "data": {</msg>
-<msg timestamp="20200724 16:55:36.177" level="INFO">    "list": []</msg>
-<msg timestamp="20200724 16:55:36.177" level="INFO">  }</msg>
-<msg timestamp="20200724 16:55:36.177" level="INFO">}</msg>
-<status status="PASS" starttime="20200724 16:55:35.854" endtime="20200724 16:55:36.178"></status>
+<msg timestamp="20200728 11:41:18.937" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:18.937" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:18.937" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:18.937" level="INFO">  "data": "325"</msg>
+<msg timestamp="20200728 11:41:18.937" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:18.738" endtime="20200728 11:41:18.937"></status>
 </kw>
 <kw name="Fapi Data To Object" library="FATL.FapiKeywords">
 <doc>Convert Fapi response content to python object</doc>
 <assign>
 <var>${data}</var>
 </assign>
-<msg timestamp="20200724 16:55:36.179" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x03C5B2C8&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:36.178" endtime="20200724 16:55:36.179"></status>
+<msg timestamp="20200728 11:41:18.937" level="INFO">${data} = 325</msg>
+<status status="PASS" starttime="20200728 11:41:18.937" endtime="20200728 11:41:18.937"></status>
 </kw>
 <kw name="Set Suite Variable" library="BuiltIn">
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
@@ -123,415 +2432,33 @@ given `alias`</doc>
 <arg>${response_data}</arg>
 <arg>${data}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:36.182" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x03C5B2C8&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:36.179" endtime="20200724 16:55:36.182"></status>
+<msg timestamp="20200728 11:41:18.937" level="INFO">${response_data} = 325</msg>
+<status status="PASS" starttime="20200728 11:41:18.937" endtime="20200728 11:41:18.937"></status>
 </kw>
-<status status="PASS" starttime="20200724 16:55:35.088" endtime="20200724 16:55:36.182"></status>
+<status status="PASS" starttime="20200728 11:41:18.738" endtime="20200728 11:41:18.937"></status>
 </kw>
 <kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
 <doc>Fapi response status code should be 0 (means success)</doc>
-<status status="PASS" starttime="20200724 16:55:36.183" endtime="20200724 16:55:36.183"></status>
+<status status="PASS" starttime="20200728 11:41:18.937" endtime="20200728 11:41:18.947"></status>
 </kw>
 <kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
 <doc>Fapi HTTP response code should be 200 (means success)</doc>
-<msg timestamp="20200724 16:55:36.184" level="INFO">HTTP response code is 200</msg>
-<status status="PASS" starttime="20200724 16:55:36.184" endtime="20200724 16:55:36.184"></status>
+<msg timestamp="20200728 11:41:18.947" level="INFO">HTTP response code is 200</msg>
+<status status="PASS" starttime="20200728 11:41:18.947" endtime="20200728 11:41:18.947"></status>
 </kw>
 <tags>
-<tag>作者：张鹏</tag>
-<tag>冒烟集-新福建App</tag>
-<tag>直播/客户端直播报道查看（赖厚泽）</tag>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>获取会员当前积分/积分管理（孙安）</tag>
 </tags>
-<status status="PASS" starttime="20200724 16:55:35.085" endtime="20200724 16:55:36.185" critical="yes"></status>
+<status status="PASS" starttime="20200728 11:41:18.718" endtime="20200728 11:41:18.989" critical="yes"></status>
 </test>
-<test id="s1-s1-t2" name="查看非直播栏目下的稿件列表，返回该栏目下的稿件数据(该栏目下未创建数据顾返回为空)">
-<kw name="Get Live Articles" library="LiveCommon">
-<doc>直播稿件列表</doc>
+<test id="s1-s4-t2" name="输入的会员id无效时，接口返回会员信息不存在">
+<kw name="Score" library="ScoreManagerCommon">
+<doc>获取会员当前积分</doc>
 <arguments>
 <arg>${ID1}</arg>
 </arguments>
-<kw name="Sign" library="authen">
-<assign>
-<var>${secretinfo}</var>
-</assign>
-<msg timestamp="20200724 16:55:39.308" level="INFO">${secretinfo} = {'authtoken': 'a0d40923703649a7ae6b055d0fdf7366', 'time': '1595580936194', 'sign': '31b9f526a90b08d15153f3ba94a8a0af'}</msg>
-<status status="PASS" starttime="20200724 16:55:36.195" endtime="20200724 16:55:39.308"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[authtoken]</arg>
-</arguments>
-<assign>
-<var>${authtoken}</var>
-</assign>
-<msg timestamp="20200724 16:55:39.308" level="INFO">${authtoken} = a0d40923703649a7ae6b055d0fdf7366</msg>
-<status status="PASS" starttime="20200724 16:55:39.308" endtime="20200724 16:55:39.308"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[time]</arg>
-</arguments>
-<assign>
-<var>${time}</var>
-</assign>
-<msg timestamp="20200724 16:55:39.309" level="INFO">${time} = 1595580936194</msg>
-<status status="PASS" starttime="20200724 16:55:39.308" endtime="20200724 16:55:39.309"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[sign]</arg>
-</arguments>
-<assign>
-<var>${sign}</var>
-</assign>
-<msg timestamp="20200724 16:55:39.309" level="INFO">${sign} = 31b9f526a90b08d15153f3ba94a8a0af</msg>
-<status status="PASS" starttime="20200724 16:55:39.309" endtime="20200724 16:55:39.309"></status>
-</kw>
-<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
-<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
-<arguments>
-<arg>sign</arg>
-<arg>${sign}</arg>
-<arg>time</arg>
-<arg>${time}</arg>
-<arg>authtoken</arg>
-<arg>${authtoken}</arg>
-</arguments>
-<status status="PASS" starttime="20200724 16:55:39.309" endtime="20200724 16:55:39.310"></status>
-</kw>
-<kw name="Fapi Params Set" library="FATL.FapiKeywords">
-<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
-<arguments>
-<arg>columnId</arg>
-<arg>${columnid}</arg>
-<arg>siteId</arg>
-<arg>${siteid}</arg>
-<arg>curVersions</arg>
-<arg>${CURVERSIONS}</arg>
-</arguments>
-<status status="PASS" starttime="20200724 16:55:39.310" endtime="20200724 16:55:39.310"></status>
-</kw>
-<kw name="Fapi Get" library="FATL.FapiKeywords">
-<doc>Send a GET request on the session object found using the
-given `alias`</doc>
-<arguments>
-<arg>${APPIF_ALIAS}</arg>
-<arg>${GETLIVEARTICLES_URI}</arg>
-</arguments>
-<msg timestamp="20200724 16:55:39.398" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/getLiveArticles?columnId=2&amp;siteId=1&amp;curVersions=1 
- path_url=/app_if/getLiveArticles?columnId=2&amp;siteId=1&amp;curVersions=1 
- headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '31b9f526a90b08d15153f3ba94a8a0af', 'time': '1595580936194', 'authtoken': 'a0d40923703649a7ae6b055d0fdf7366', 'Cookie': 'HWWAFSESID=1a7588b48213debc65; HWWAFSESTIME=1595580932762'} 
- body=None 
- </msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/getLiveArticles?columnId=2&amp;siteId=1&amp;curVersions=1 
- status=200, reason= 
- body={"status":0,"message":"success","data":{"list":[]}} 
- </msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">JSON string is : {</msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">  "status": 0,</msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">  "message": "success",</msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">  "data": {</msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">    "list": []</msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">  }</msg>
-<msg timestamp="20200724 16:55:39.398" level="INFO">}</msg>
-<status status="PASS" starttime="20200724 16:55:39.310" endtime="20200724 16:55:39.398"></status>
-</kw>
-<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
-<doc>Convert Fapi response content to python object</doc>
-<assign>
-<var>${data}</var>
-</assign>
-<msg timestamp="20200724 16:55:39.399" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x03C5BCA0&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:39.399" endtime="20200724 16:55:39.399"></status>
-</kw>
-<kw name="Set Suite Variable" library="BuiltIn">
-<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<arguments>
-<arg>${response_data}</arg>
-<arg>${data}</arg>
-</arguments>
-<msg timestamp="20200724 16:55:39.400" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x03C5BCA0&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:39.399" endtime="20200724 16:55:39.400"></status>
-</kw>
-<status status="PASS" starttime="20200724 16:55:36.194" endtime="20200724 16:55:39.400"></status>
-</kw>
-<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
-<doc>Fapi response status code should be 0 (means success)</doc>
-<status status="PASS" starttime="20200724 16:55:39.401" endtime="20200724 16:55:39.401"></status>
-</kw>
-<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
-<doc>Fapi HTTP response code should be 200 (means success)</doc>
-<msg timestamp="20200724 16:55:39.402" level="INFO">HTTP response code is 200</msg>
-<status status="PASS" starttime="20200724 16:55:39.402" endtime="20200724 16:55:39.402"></status>
-</kw>
-<tags>
-<tag>作者：张鹏</tag>
-<tag>冒烟集-新福建App</tag>
-<tag>直播/客户端直播报道查看（赖厚泽）</tag>
-</tags>
-<status status="PASS" starttime="20200724 16:55:36.187" endtime="20200724 16:55:39.403" critical="yes"></status>
-</test>
-<kw name="Fapi Delete All Sessions" library="FATL.FapiKeywords" type="teardown">
-<doc>Removes all the session objects</doc>
-<msg timestamp="20200724 16:55:39.406" level="INFO">Delete All Sessions</msg>
-<status status="PASS" starttime="20200724 16:55:39.405" endtime="20200724 16:55:39.406"></status>
-</kw>
-<doc>客户端直播稿件列表查看</doc>
-<status status="PASS" starttime="20200724 16:55:30.681" endtime="20200724 16:55:39.406"></status>
-</suite>
-<suite id="s1-s2" name="LiveComing" source="D:\jiangbm\XFJ\API\App_Live\LiveComing.robot">
-<kw name="Create Session Common" library="Common" type="setup">
-<kw name="Fapi Create Session" library="FATL.FapiKeywords">
-<doc>Fapi Create Session: create a HTTP session to a server</doc>
-<arguments>
-<arg>${APPIF_ALIAS}</arg>
-<arg>${APPIF_URL}</arg>
-</arguments>
-<msg timestamp="20200724 16:55:39.443" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1', 'sign': '31b9f526a90b08d15153f3ba94a8a0af', 'time': '1595580936194', 'authtoken': 'a0d40923703649a7ae6b055d0fdf7366'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20200724 16:55:39.443" endtime="20200724 16:55:39.444"></status>
-</kw>
-<status status="PASS" starttime="20200724 16:55:39.443" endtime="20200724 16:55:39.444"></status>
-</kw>
-<test id="s1-s2-t1" name="直播预告查看，接口返回数据（由于列表页数据是动态无法进行准确断言）">
-<kw name="Live Coming" library="LiveCommon">
-<doc>直播预告</doc>
-<kw name="Sign" library="authen">
-<assign>
-<var>${secretinfo}</var>
-</assign>
-<msg timestamp="20200724 16:55:40.767" level="INFO">${secretinfo} = {'authtoken': '80ee1deea09d44f8acfc528157549bb3', 'time': '1595580939448', 'sign': '1a04b318d99c60524e1213107f6cabb2'}</msg>
-<status status="PASS" starttime="20200724 16:55:39.448" endtime="20200724 16:55:40.767"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[authtoken]</arg>
-</arguments>
-<assign>
-<var>${authtoken}</var>
-</assign>
-<msg timestamp="20200724 16:55:40.768" level="INFO">${authtoken} = 80ee1deea09d44f8acfc528157549bb3</msg>
-<status status="PASS" starttime="20200724 16:55:40.768" endtime="20200724 16:55:40.768"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[time]</arg>
-</arguments>
-<assign>
-<var>${time}</var>
-</assign>
-<msg timestamp="20200724 16:55:40.768" level="INFO">${time} = 1595580939448</msg>
-<status status="PASS" starttime="20200724 16:55:40.768" endtime="20200724 16:55:40.768"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[sign]</arg>
-</arguments>
-<assign>
-<var>${sign}</var>
-</assign>
-<msg timestamp="20200724 16:55:40.769" level="INFO">${sign} = 1a04b318d99c60524e1213107f6cabb2</msg>
-<status status="PASS" starttime="20200724 16:55:40.769" endtime="20200724 16:55:40.769"></status>
-</kw>
-<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
-<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
-<arguments>
-<arg>sign</arg>
-<arg>${sign}</arg>
-<arg>time</arg>
-<arg>${time}</arg>
-<arg>authtoken</arg>
-<arg>${authtoken}</arg>
-</arguments>
-<status status="PASS" starttime="20200724 16:55:40.769" endtime="20200724 16:55:40.769"></status>
-</kw>
-<kw name="Fapi Params Set" library="FATL.FapiKeywords">
-<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
-<arguments>
-<arg>siteID</arg>
-<arg>${siteid}</arg>
-<arg>curVersions</arg>
-<arg>${CURVERSIONS}</arg>
-</arguments>
-<status status="PASS" starttime="20200724 16:55:40.769" endtime="20200724 16:55:40.770"></status>
-</kw>
-<kw name="Fapi Get" library="FATL.FapiKeywords">
-<doc>Send a GET request on the session object found using the
-given `alias`</doc>
-<arguments>
-<arg>${APPIF_ALIAS}</arg>
-<arg>${LIVECOMING_URI}</arg>
-</arguments>
-<msg timestamp="20200724 16:55:41.033" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/liveComing?siteID=1&amp;curVersions=1 
- path_url=/app_if/liveComing?siteID=1&amp;curVersions=1 
- headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '1a04b318d99c60524e1213107f6cabb2', 'time': '1595580939448', 'authtoken': '80ee1deea09d44f8acfc528157549bb3'} 
- body=None 
- </msg>
-<msg timestamp="20200724 16:55:41.044" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/liveComing?siteID=1&amp;curVersions=1 
- status=200, reason= 
- body={"status":0,"message":"success","data":{"list":[{"fileId":1067,"title":"直播测试2","startTime":"","type":1,"webBannerUrl":"图片存储;appcms/userfiles/90/images/cms/live/2019/11/1574750546513.jpg","appBannerUrl":"图片存储;appcms/userfiles/90/images/cms/live/2019/11/1574750546513.jpg"},{"fileId":1070,"title":"俄方无风无分文","startTime":"","type":0},{"fileId":82,"title":"突发！十几辆消防车到场，龙岩铁山佳苑附近浓烟四起","startTime":"2020-07-16 12:04:00.0","type":0,"appBannerUrl":"图片存储;xy/202007/16/e4c2aaea-e7ac-42bb-bd90-ed6b0b594d55.jpg"},{"fileId":83,"title":"邢伟直播课内容","startTime":"2020-07-16 12:05:00.0","type":0,"appBannerUrl":"图片存储;xy/202007/16/5670316b-eb28-48dc-8122-a658beb9c704.jpg"},{"fileId":84,"title":"1234567890-=","startTime":"2020-07-16 13:57:00.0","type":0,"appBannerUrl":"图片存储;xy/202007/16/8724c053-d7ba-4e3b-b3a6-12af0c49b08e.jpg"}]}} 
- </msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">JSON string is : {</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">  "status": 0,</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">  "message": "success",</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">  "data": {</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">    "list": [</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "fileId": 1067,</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "title": "直播测试2",</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "startTime": "",</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "type": 1,</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "webBannerUrl": "图片存储;appcms/userfiles/90/images/cms/live/2019/11/1574750546513.jpg",</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "appBannerUrl": "图片存储;appcms/userfiles/90/images/cms/live/2019/11/1574750546513.jpg"</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "fileId": 1070,</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "title": "俄方无风无分文",</msg>
-<msg timestamp="20200724 16:55:41.045" level="INFO">        "startTime": "",</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "type": 0</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "fileId": 82,</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "title": "突发！十几辆消防车到场，龙岩铁山佳苑附近浓烟四起",</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "startTime": "2020-07-16 12:04:00.0",</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "type": 0,</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "appBannerUrl": "图片存储;xy/202007/16/e4c2aaea-e7ac-42bb-bd90-ed6b0b594d55.jpg"</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "fileId": 83,</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "title": "邢伟直播课内容",</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "startTime": "2020-07-16 12:05:00.0",</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "type": 0,</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "appBannerUrl": "图片存储;xy/202007/16/5670316b-eb28-48dc-8122-a658beb9c704.jpg"</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "fileId": 84,</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "title": "1234567890-=",</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "startTime": "2020-07-16 13:57:00.0",</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "type": 0,</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">        "appBannerUrl": "图片存储;xy/202007/16/8724c053-d7ba-4e3b-b3a6-12af0c49b08e.jpg"</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">      }</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">    ]</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">  }</msg>
-<msg timestamp="20200724 16:55:41.046" level="INFO">}</msg>
-<status status="PASS" starttime="20200724 16:55:40.770" endtime="20200724 16:55:41.047"></status>
-</kw>
-<kw name="Fapi Data To Object" library="FATL.FapiKeywords">
-<doc>Convert Fapi response content to python object</doc>
-<assign>
-<var>${data}</var>
-</assign>
-<msg timestamp="20200724 16:55:41.047" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x03CB93D0&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:41.047" endtime="20200724 16:55:41.047"></status>
-</kw>
-<kw name="Set Suite Variable" library="BuiltIn">
-<doc>Makes a variable available everywhere within the scope of the current suite.</doc>
-<arguments>
-<arg>${response_data}</arg>
-<arg>${data}</arg>
-</arguments>
-<msg timestamp="20200724 16:55:41.049" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x03CB93D0&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:41.047" endtime="20200724 16:55:41.049"></status>
-</kw>
-<status status="PASS" starttime="20200724 16:55:39.448" endtime="20200724 16:55:41.049"></status>
-</kw>
-<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
-<doc>Fapi response status code should be 0 (means success)</doc>
-<status status="PASS" starttime="20200724 16:55:41.049" endtime="20200724 16:55:41.049"></status>
-</kw>
-<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
-<doc>Fapi HTTP response code should be 200 (means success)</doc>
-<msg timestamp="20200724 16:55:41.050" level="INFO">HTTP response code is 200</msg>
-<status status="PASS" starttime="20200724 16:55:41.050" endtime="20200724 16:55:41.050"></status>
-</kw>
-<tags>
-<tag>作者：张鹏</tag>
-<tag>冒烟集-新福建App</tag>
-<tag>直播/直播预告（赖厚泽）</tag>
-</tags>
-<status status="PASS" starttime="20200724 16:55:39.444" endtime="20200724 16:55:41.051" critical="yes"></status>
-</test>
-<kw name="Fapi Delete All Sessions" library="FATL.FapiKeywords" type="teardown">
-<doc>Removes all the session objects</doc>
-<msg timestamp="20200724 16:55:41.054" level="INFO">Delete All Sessions</msg>
-<status status="PASS" starttime="20200724 16:55:41.053" endtime="20200724 16:55:41.054"></status>
-</kw>
-<doc>直播预告</doc>
-<status status="PASS" starttime="20200724 16:55:39.413" endtime="20200724 16:55:41.054"></status>
-</suite>
-<suite id="s1-s3" name="LiveView" source="D:\jiangbm\XFJ\API\App_Live\LiveView.robot">
-<kw name="Create Session Common" library="Common" type="setup">
-<kw name="Fapi Create Session" library="FATL.FapiKeywords">
-<doc>Fapi Create Session: create a HTTP session to a server</doc>
-<arguments>
-<arg>${APPIF_ALIAS}</arg>
-<arg>${APPIF_URL}</arg>
-</arguments>
-<msg timestamp="20200724 16:55:41.091" level="INFO">Creating Session using : alias=appif, url=https://api1.fjdaily.com/app_if, headers={'APITEST': '1', 'sign': '1a04b318d99c60524e1213107f6cabb2', 'time': '1595580939448', 'authtoken': '80ee1deea09d44f8acfc528157549bb3'},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<status status="PASS" starttime="20200724 16:55:41.091" endtime="20200724 16:55:41.092"></status>
-</kw>
-<status status="PASS" starttime="20200724 16:55:41.091" endtime="20200724 16:55:41.092"></status>
-</kw>
-<test id="s1-s3-t1" name="当直播话题存在时，接口返回正常">
-<kw name="Live View" library="LiveCommon">
-<doc>客户端直播列表查看</doc>
-<kw name="Sign" library="authen">
-<assign>
-<var>${secretinfo}</var>
-</assign>
-<msg timestamp="20200724 16:55:41.817" level="INFO">${secretinfo} = {'authtoken': 'fe3d6beda68b46ea9a56836fd7ebb066', 'time': '1595580941094', 'sign': '51513ca904921e65640101f94e359cde'}</msg>
-<status status="PASS" starttime="20200724 16:55:41.094" endtime="20200724 16:55:41.818"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[authtoken]</arg>
-</arguments>
-<assign>
-<var>${authtoken}</var>
-</assign>
-<msg timestamp="20200724 16:55:41.818" level="INFO">${authtoken} = fe3d6beda68b46ea9a56836fd7ebb066</msg>
-<status status="PASS" starttime="20200724 16:55:41.818" endtime="20200724 16:55:41.818"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[time]</arg>
-</arguments>
-<assign>
-<var>${time}</var>
-</assign>
-<msg timestamp="20200724 16:55:41.819" level="INFO">${time} = 1595580941094</msg>
-<status status="PASS" starttime="20200724 16:55:41.819" endtime="20200724 16:55:41.819"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[sign]</arg>
-</arguments>
-<assign>
-<var>${sign}</var>
-</assign>
-<msg timestamp="20200724 16:55:41.820" level="INFO">${sign} = 51513ca904921e65640101f94e359cde</msg>
-<status status="PASS" starttime="20200724 16:55:41.819" endtime="20200724 16:55:41.820"></status>
-</kw>
-<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
-<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
-<arguments>
-<arg>sign</arg>
-<arg>${sign}</arg>
-<arg>time</arg>
-<arg>${time}</arg>
-<arg>authtoken</arg>
-<arg>${authtoken}</arg>
-</arguments>
-<status status="PASS" starttime="20200724 16:55:41.820" endtime="20200724 16:55:41.821"></status>
-</kw>
 <kw name="Fapi Params Set" library="FATL.FapiKeywords">
 <doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
 <arguments>
@@ -540,298 +2467,38 @@ given `alias`</doc>
 <arg>curVersions</arg>
 <arg>${CURVERSIONS}</arg>
 </arguments>
-<status status="PASS" starttime="20200724 16:55:41.821" endtime="20200724 16:55:41.821"></status>
+<status status="PASS" starttime="20200728 11:41:18.989" endtime="20200728 11:41:18.989"></status>
 </kw>
 <kw name="Fapi Get" library="FATL.FapiKeywords">
 <doc>Send a GET request on the session object found using the
 given `alias`</doc>
 <arguments>
 <arg>${APPIF_ALIAS}</arg>
-<arg>${LIVEVIEW_URI}</arg>
+<arg>${SCORE_URI}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:42.516" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/liveView?id=1084&amp;curVersions=1 
- path_url=/app_if/liveView?id=1084&amp;curVersions=1 
- headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '51513ca904921e65640101f94e359cde', 'time': '1595580941094', 'authtoken': 'fe3d6beda68b46ea9a56836fd7ebb066'} 
+<msg timestamp="20200728 11:41:19.039" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/amuc/api/member/score?id=qq&amp;curVersions=1 
+ path_url=/app_if/amuc/api/member/score?id=qq&amp;curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907678018', 'authtoken': '55f83dcacd3448eda86a62a40ab35555', 'sign': '6107e286a94a736ca3891761cbec5144', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=c68e08e3039f7584c3; HWWAFSESTIME=1595907677383'} 
  body=None 
  </msg>
-<msg timestamp="20200724 16:55:42.606" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/liveView?id=1084&amp;curVersions=1 
+<msg timestamp="20200728 11:41:19.039" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/amuc/api/member/score?id=qq&amp;curVersions=1 
  status=200, reason= 
- body={"status":0,"message":"success","data":{"main":{"startTime":"2017-01-18 09:31:15.0","type":0,"fileId":1084,"title":"直播｜福建“铁骑”返乡 向着家的方向","publishtime":"2017-01-18 09:25:34.0","countClick":0,"tag":"","user":"","url":"","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","countDiscuss":0,"countPraise":0,"content":"","sourceType":0,"discussClosed":0,"sendPresentClosed":0,"reportClosed":0,"briefClosed":0,"config":{"webBanner":"图片存储;appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg","appBanner":"图片存储;appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg","videos":[],"users":[],"webBannerUrl":"https://img1.fjdaily.com/app/resource/appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg","appBannerUrl":"https://img1.fjdaily.com/app/resource/appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg"},"streamIds":"","status":2,"flower":0,"clap":0,"articleID":388533,"useArticle":true,"shareClosed":0,"articlePubTime":""},"list":[{"fileId":2364,"title":"","publishtime":"2017-01-18 22:27:46.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"10多个小时、570公里！“铁骑”终于到家了！与亲人团聚过年，所有的辛苦都值了！","sourceType":1,"attachments":[]},{"fileId":2362,"title":"","publishtime":"2017-01-18 22:12:43.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"还有甜甜酸酸的糯米酒，段师傅说他们家有个规矩，要喝掉碗里的美酒，才能品尝美味的米果。为了米果，甘甜的糯米酒大家一饮而尽。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2361,"title":"","publishtime":"2017-01-18 22:07:50.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"段师傅的母亲为归家的儿子做饭，锅里是年底才会做的黄粿，是用自家种的花生榨的花生油，加上腊肉煮的。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2360,"title":"","publishtime":"2017-01-18 21:49:13.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"晚上9点37分，段东阳终于到家了。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2359,"title":"","publishtime":"2017-01-18 20:23:52.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"晚上8点12分，抵达于都县城外的于都长征大桥头。段东阳和伙伴正在休息，他们已经连续骑行了两个小时，还有四十公里左右就要到家了。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2358,"title":"","publishtime":"2017-01-18 18:32:42.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"【旅途小插曲】 归心似箭的段东阳不小心骑错了路，现在前往于都县仙下镇。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2356,"title":"","publishtime":"2017-01-18 17:54:04.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"下午5点44分，进入瑞金市。","sourceType":1,"attachments":[]},{"fileId":2355,"title":"","publishtime":"2017-01-18 17:53:21.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"进入江西后，地势一马平川。下午5点20分，记者抵达江西瑞金第一个补给点——瑞金福源站。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2353,"title":"","publishtime":"2017-01-18 17:08:41.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"从富友加油站出发后不久就开始下雨了。5点03分，段东阳和他的伙伴经过长汀进入江西，家，就在眼前了！（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2352,"title":"","publishtime":"2017-01-18 17:04:43.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"段东阳骑行中，此时距离瑞金很近了……","sourceType":1,"attachments":[]},{"fileId":2351,"title":"","publishtime":"2017-01-18 15:55:50.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"骑手段东阳，江西赣州于都人，出来打拼十几年，没赚到多少钱。家中老父已经60多岁了，今年最大的念想，就是回家亲手给父母做一盘卤猪脚。他特地从晋江的朋友处学了当地卤猪脚的做法，就是想让远在江西老家的父母尝一尝福建味道。说起父母他感慨万千：“过年再难也要回家，就是为了能见见爸妈。我不能经常陪在他们身边，二老年纪都大了，说句不孝的话，现在是见一次少一次。”（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2350,"title":"","publishtime":"2017-01-18 15:39:33.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"15点30分，带萨摩耶返乡的老曾马上就到家了，我们可爱的萨摩耶也马上就要结束寒冷的旅程了。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2348,"title":"","publishtime":"2017-01-18 15:36:22.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"“铁骑”老乡们即将离闽，在长汀富友加油站，他们忙着给车加油。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2347,"title":"","publishtime":"2017-01-18 15:28:19.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"午后的长汀寒气逼人，群山被浓浓的云雾笼罩，比早上五点的石狮更冷一些。虽然没有下雨，但是已经有不少骑手穿上雨裤，防风御寒。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2346,"title":"","publishtime":"2017-01-18 15:13:24.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"下午2点50分，长汀富友加油站是出省前的最后一个补给点，38岁的老谢马上又要踏上归途，他说离家在江西宁都的家还有两百公里，脸上洋溢着是满满的幸福。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2345,"title":"","publishtime":"2017-01-18 14:03:24.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"骑手们的世界比一般人冷五度以上！长时间固定一个姿势非常辛苦，落地时脚都麻了，很累。但对于“铁骑们”来说，再冷再险再累，翻过这座山就好了。山的那头，有家人。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2344,"title":"","publishtime":"2017-01-18 14:01:37.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"“好冷！脚都冻麻了！感觉整个上半身都在往后倾”。这是记者体验后第一感觉。在漳州进入龙岩的重要通道，返乡路也从这里开始进入连续爬坡路段，一侧是绝壁一侧是断崖，很危险。虽然记者一开始就戴上了头盔，护膝，手套，但是还是非常冷，风还是能找到头盔的一条缝隙灌进来。","sourceType":1,"attachments":[]},{"fileId":2343,"title":"","publishtime":"2017-01-18 13:32:51.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"启程前往出省前的最后一个大型补给点——位于长汀境内的富友加油站，预计需要两个小时。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2342,"title":"","publishtime":"2017-01-18 13:12:35.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"12点40分，张新生夫妇抵达龙机加油站，有一个伙伴还没到，有点急的张新生正在打电话联系。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]},{"fileId":2341,"title":"","publishtime":"2017-01-18 13:10:53.0","user":"福建日报APP_新福建","userID":0,"userIcon":"https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0","content":"从和溪加油站到龙机加油站，30公里路，路面湿滑，路途遥远。每一辆摩托车上，都承载着一份对家的渴望。（钟自炜 方炜杭 邹家骅 文/图）","sourceType":1,"attachments":[]}]}} 
+ body={"status":0,"message":"success","data":"会员信息不存在，请检查参数是否正确"} 
  </msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">JSON string is : {</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">  "status": 0,</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">  "message": "success",</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">  "data": {</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">    "main": {</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "startTime": "2017-01-18 09:31:15.0",</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "type": 0,</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "fileId": 1084,</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "title": "直播｜福建“铁骑”返乡 向着家的方向",</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "publishtime": "2017-01-18 09:25:34.0",</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "countClick": 0,</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "tag": "",</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "user": "",</msg>
-<msg timestamp="20200724 16:55:42.608" level="INFO">      "url": "",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "countDiscuss": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "countPraise": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "content": "",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "sourceType": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "discussClosed": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "sendPresentClosed": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "reportClosed": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "briefClosed": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "config": {</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "webBanner": "图片存储;appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "appBanner": "图片存储;appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "videos": [],</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "users": [],</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "webBannerUrl": "https://img1.fjdaily.com/app/resource/appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "appBannerUrl": "https://img1.fjdaily.com/app/resource/appcms/userfiles/14/images/cms/live/2017/01/1484732598780.jpg"</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "streamIds": "",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "status": 2,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "flower": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "clap": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "articleID": 388533,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "useArticle": true,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "shareClosed": 0,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      "articlePubTime": ""</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">    },</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">    "list": [</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "fileId": 2364,</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.609" level="INFO">        "publishtime": "2017-01-18 22:27:46.0",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "content": "10多个小时、570公里！“铁骑”终于到家了！与亲人团聚过年，所有的辛苦都值了！",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "fileId": 2362,</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "publishtime": "2017-01-18 22:12:43.0",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "content": "还有甜甜酸酸的糯米酒，段师傅说他们家有个规矩，要喝掉碗里的美酒，才能品尝美味的米果。为了米果，甘甜的糯米酒大家一饮而尽。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "fileId": 2361,</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "publishtime": "2017-01-18 22:07:50.0",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "content": "段师傅的母亲为归家的儿子做饭，锅里是年底才会做的黄粿，是用自家种的花生榨的花生油，加上腊肉煮的。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.610" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "fileId": 2360,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "publishtime": "2017-01-18 21:49:13.0",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "content": "晚上9点37分，段东阳终于到家了。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "fileId": 2359,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "publishtime": "2017-01-18 20:23:52.0",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "content": "晚上8点12分，抵达于都县城外的于都长征大桥头。段东阳和伙伴正在休息，他们已经连续骑行了两个小时，还有四十公里左右就要到家了。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "fileId": 2358,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "publishtime": "2017-01-18 18:32:42.0",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.611" level="INFO">        "content": "【旅途小插曲】 归心似箭的段东阳不小心骑错了路，现在前往于都县仙下镇。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "fileId": 2356,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "publishtime": "2017-01-18 17:54:04.0",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "content": "下午5点44分，进入瑞金市。",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "fileId": 2355,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "publishtime": "2017-01-18 17:53:21.0",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "content": "进入江西后，地势一马平川。下午5点20分，记者抵达江西瑞金第一个补给点——瑞金福源站。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "fileId": 2353,</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.612" level="INFO">        "publishtime": "2017-01-18 17:08:41.0",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "content": "从富友加油站出发后不久就开始下雨了。5点03分，段东阳和他的伙伴经过长汀进入江西，家，就在眼前了！（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "fileId": 2352,</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "publishtime": "2017-01-18 17:04:43.0",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "content": "段东阳骑行中，此时距离瑞金很近了……",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "fileId": 2351,</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "publishtime": "2017-01-18 15:55:50.0",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "content": "骑手段东阳，江西赣州于都人，出来打拼十几年，没赚到多少钱。家中老父已经60多岁了，今年最大的念想，就是回家亲手给父母做一盘卤猪脚。他特地从晋江的朋友处学了当地卤猪脚的做法，就是想让远在江西老家的父母尝一尝福建味道。说起父母他感慨万千：“过年再难也要回家，就是为了能见见爸妈。我不能经常陪在他们身边，二老年纪都大了，说句不孝的话，现在是见一次少一次。”（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.613" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "fileId": 2350,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "publishtime": "2017-01-18 15:39:33.0",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "content": "15点30分，带萨摩耶返乡的老曾马上就到家了，我们可爱的萨摩耶也马上就要结束寒冷的旅程了。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "fileId": 2348,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "publishtime": "2017-01-18 15:36:22.0",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "content": "“铁骑”老乡们即将离闽，在长汀富友加油站，他们忙着给车加油。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "fileId": 2347,</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "publishtime": "2017-01-18 15:28:19.0",</msg>
-<msg timestamp="20200724 16:55:42.614" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "content": "午后的长汀寒气逼人，群山被浓浓的云雾笼罩，比早上五点的石狮更冷一些。虽然没有下雨，但是已经有不少骑手穿上雨裤，防风御寒。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "fileId": 2346,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "publishtime": "2017-01-18 15:13:24.0",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "content": "下午2点50分，长汀富友加油站是出省前的最后一个补给点，38岁的老谢马上又要踏上归途，他说离家在江西宁都的家还有两百公里，脸上洋溢着是满满的幸福。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "fileId": 2345,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "publishtime": "2017-01-18 14:03:24.0",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "content": "骑手们的世界比一般人冷五度以上！长时间固定一个姿势非常辛苦，落地时脚都麻了，很累。但对于“铁骑们”来说，再冷再险再累，翻过这座山就好了。山的那头，有家人。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.615" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "fileId": 2344,</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "publishtime": "2017-01-18 14:01:37.0",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "content": "“好冷！脚都冻麻了！感觉整个上半身都在往后倾”。这是记者体验后第一感觉。在漳州进入龙岩的重要通道，返乡路也从这里开始进入连续爬坡路段，一侧是绝壁一侧是断崖，很危险。虽然记者一开始就戴上了头盔，护膝，手套，但是还是非常冷，风还是能找到头盔的一条缝隙灌进来。",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "fileId": 2343,</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "publishtime": "2017-01-18 13:32:51.0",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "content": "启程前往出省前的最后一个大型补给点——位于长汀境内的富友加油站，预计需要两个小时。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.616" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "fileId": 2342,</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "publishtime": "2017-01-18 13:12:35.0",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "content": "12点40分，张新生夫妇抵达龙机加油站，有一个伙伴还没到，有点急的张新生正在打电话联系。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">      },</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">      {</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "fileId": 2341,</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "title": "",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "publishtime": "2017-01-18 13:10:53.0",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "user": "福建日报APP_新福建",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "userID": 0,</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "userIcon": "https://api1.fjdaily.com/app_if/amuc/api/member/getPortrait?uid=0",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "content": "从和溪加油站到龙机加油站，30公里路，路面湿滑，路途遥远。每一辆摩托车上，都承载着一份对家的渴望。（钟自炜 方炜杭 邹家骅 文/图）",</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "sourceType": 1,</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">        "attachments": []</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">      }</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">    ]</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">  }</msg>
-<msg timestamp="20200724 16:55:42.617" level="INFO">}</msg>
-<status status="PASS" starttime="20200724 16:55:41.821" endtime="20200724 16:55:42.617"></status>
+<msg timestamp="20200728 11:41:19.039" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:19.039" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:19.039" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:19.039" level="INFO">  "data": "会员信息不存在，请检查参数是否正确"</msg>
+<msg timestamp="20200728 11:41:19.039" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:18.989" endtime="20200728 11:41:19.039"></status>
 </kw>
 <kw name="Fapi Data To Object" library="FATL.FapiKeywords">
 <doc>Convert Fapi response content to python object</doc>
 <assign>
 <var>${data}</var>
 </assign>
-<msg timestamp="20200724 16:55:42.618" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x03AAE958&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:42.618" endtime="20200724 16:55:42.618"></status>
+<msg timestamp="20200728 11:41:19.039" level="INFO">${data} = 会员信息不存在，请检查参数是否正确</msg>
+<status status="PASS" starttime="20200728 11:41:19.039" endtime="20200728 11:41:19.039"></status>
 </kw>
 <kw name="Set Suite Variable" library="BuiltIn">
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
@@ -839,85 +2506,32 @@ given `alias`</doc>
 <arg>${response_data}</arg>
 <arg>${data}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:42.620" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x03AAE958&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:42.618" endtime="20200724 16:55:42.620"></status>
+<msg timestamp="20200728 11:41:19.039" level="INFO">${response_data} = 会员信息不存在，请检查参数是否正确</msg>
+<status status="PASS" starttime="20200728 11:41:19.039" endtime="20200728 11:41:19.039"></status>
 </kw>
-<status status="PASS" starttime="20200724 16:55:41.094" endtime="20200724 16:55:42.620"></status>
+<status status="PASS" starttime="20200728 11:41:18.989" endtime="20200728 11:41:19.039"></status>
 </kw>
-<kw name="Fapi Status Should Be Succeed" library="FATL.FapiKeywords">
-<doc>Fapi response status code should be 0 (means success)</doc>
-<status status="PASS" starttime="20200724 16:55:42.620" endtime="20200724 16:55:42.620"></status>
-</kw>
-<kw name="Fapi Request Should Be Succeed" library="FATL.FapiKeywords">
-<doc>Fapi HTTP response code should be 200 (means success)</doc>
-<msg timestamp="20200724 16:55:42.621" level="INFO">HTTP response code is 200</msg>
-<status status="PASS" starttime="20200724 16:55:42.621" endtime="20200724 16:55:42.621"></status>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${response_data}</arg>
+<arg>${RESULT}</arg>
+</arguments>
+<status status="PASS" starttime="20200728 11:41:19.049" endtime="20200728 11:41:19.049"></status>
 </kw>
 <tags>
-<tag>作者：张鹏</tag>
-<tag>冒烟集-新福建App</tag>
-<tag>直播/客户端直播报道查看（赖厚泽）</tag>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>获取会员当前积分/积分管理（孙安）</tag>
 </tags>
-<status status="PASS" starttime="20200724 16:55:41.092" endtime="20200724 16:55:42.621" critical="yes"></status>
+<status status="PASS" starttime="20200728 11:41:18.989" endtime="20200728 11:41:19.049" critical="yes"></status>
 </test>
-<test id="s1-s3-t2" name="当直播话题不存在时，接口返回为空状态码为-1">
-<kw name="Live View" library="LiveCommon">
-<doc>客户端直播列表查看</doc>
+<test id="s1-s4-t3" name="输入的会员id为空时，接口返回会员信息不存在">
+<kw name="Score" library="ScoreManagerCommon">
+<doc>获取会员当前积分</doc>
 <arguments>
-<arg>${NEWID}</arg>
+<arg>${EMPTY}</arg>
 </arguments>
-<kw name="Sign" library="authen">
-<assign>
-<var>${secretinfo}</var>
-</assign>
-<msg timestamp="20200724 16:55:43.351" level="INFO">${secretinfo} = {'authtoken': '13690f16e970456b88bc8ebb86d69b35', 'time': '1595580942627', 'sign': '2f296a70d184a5524ba60955f071bb41'}</msg>
-<status status="PASS" starttime="20200724 16:55:42.627" endtime="20200724 16:55:43.351"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[authtoken]</arg>
-</arguments>
-<assign>
-<var>${authtoken}</var>
-</assign>
-<msg timestamp="20200724 16:55:43.352" level="INFO">${authtoken} = 13690f16e970456b88bc8ebb86d69b35</msg>
-<status status="PASS" starttime="20200724 16:55:43.352" endtime="20200724 16:55:43.352"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[time]</arg>
-</arguments>
-<assign>
-<var>${time}</var>
-</assign>
-<msg timestamp="20200724 16:55:43.352" level="INFO">${time} = 1595580942627</msg>
-<status status="PASS" starttime="20200724 16:55:43.352" endtime="20200724 16:55:43.352"></status>
-</kw>
-<kw name="Set Variable" library="BuiltIn">
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<arguments>
-<arg>${secretinfo}[sign]</arg>
-</arguments>
-<assign>
-<var>${sign}</var>
-</assign>
-<msg timestamp="20200724 16:55:43.353" level="INFO">${sign} = 2f296a70d184a5524ba60955f071bb41</msg>
-<status status="PASS" starttime="20200724 16:55:43.352" endtime="20200724 16:55:43.353"></status>
-</kw>
-<kw name="Fapi Headers Set" library="FATL.FapiKeywords">
-<doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request headers.</doc>
-<arguments>
-<arg>sign</arg>
-<arg>${sign}</arg>
-<arg>time</arg>
-<arg>${time}</arg>
-<arg>authtoken</arg>
-<arg>${authtoken}</arg>
-</arguments>
-<status status="PASS" starttime="20200724 16:55:43.353" endtime="20200724 16:55:43.353"></status>
-</kw>
 <kw name="Fapi Params Set" library="FATL.FapiKeywords">
 <doc>Adds the given ``key_value_pairs`` and ``items`` to HTTP request parameters.</doc>
 <arguments>
@@ -926,38 +2540,38 @@ given `alias`</doc>
 <arg>curVersions</arg>
 <arg>${CURVERSIONS}</arg>
 </arguments>
-<status status="PASS" starttime="20200724 16:55:43.353" endtime="20200724 16:55:43.354"></status>
+<status status="PASS" starttime="20200728 11:41:19.049" endtime="20200728 11:41:19.059"></status>
 </kw>
 <kw name="Fapi Get" library="FATL.FapiKeywords">
 <doc>Send a GET request on the session object found using the
 given `alias`</doc>
 <arguments>
 <arg>${APPIF_ALIAS}</arg>
-<arg>${LIVEVIEW_URI}</arg>
+<arg>${SCORE_URI}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:43.417" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/liveView?id=125762&amp;curVersions=1 
- path_url=/app_if/liveView?id=125762&amp;curVersions=1 
- headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'sign': '2f296a70d184a5524ba60955f071bb41', 'time': '1595580942627', 'authtoken': '13690f16e970456b88bc8ebb86d69b35', 'Cookie': 'HWWAFSESID=584b4a00434cee813d; HWWAFSESTIME=1595580940122'} 
+<msg timestamp="20200728 11:41:19.101" level="INFO">GET Request : url=https://api1.fjdaily.com/app_if/amuc/api/member/score?id=&amp;curVersions=1 
+ path_url=/app_if/amuc/api/member/score?id=&amp;curVersions=1 
+ headers={'User-Agent': 'python-requests/2.23.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'APITEST': '1', 'time': '1595907678018', 'authtoken': '55f83dcacd3448eda86a62a40ab35555', 'sign': '6107e286a94a736ca3891761cbec5144', 'Content-Type': 'application/x-www-form-urlencoded', 'Cookie': 'HWWAFSESID=c68e08e3039f7584c3; HWWAFSESTIME=1595907677383'} 
  body=None 
  </msg>
-<msg timestamp="20200724 16:55:43.418" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/liveView?id=125762&amp;curVersions=1 
+<msg timestamp="20200728 11:41:19.101" level="INFO">GET Response : url=https://api1.fjdaily.com/app_if/amuc/api/member/score?id=&amp;curVersions=1 
  status=200, reason= 
- body={"status":-1,"message":"Your server has down or target user not exist !","data":{}} 
+ body={"status":0,"message":"success","data":"会员信息不存在，请检查参数是否正确"} 
  </msg>
-<msg timestamp="20200724 16:55:43.418" level="INFO">JSON string is : {</msg>
-<msg timestamp="20200724 16:55:43.418" level="INFO">  "status": -1,</msg>
-<msg timestamp="20200724 16:55:43.418" level="INFO">  "message": "Your server has down or target user not exist !",</msg>
-<msg timestamp="20200724 16:55:43.418" level="INFO">  "data": {}</msg>
-<msg timestamp="20200724 16:55:43.418" level="INFO">}</msg>
-<status status="PASS" starttime="20200724 16:55:43.354" endtime="20200724 16:55:43.418"></status>
+<msg timestamp="20200728 11:41:19.101" level="INFO">JSON string is : {</msg>
+<msg timestamp="20200728 11:41:19.101" level="INFO">  "status": 0,</msg>
+<msg timestamp="20200728 11:41:19.101" level="INFO">  "message": "success",</msg>
+<msg timestamp="20200728 11:41:19.101" level="INFO">  "data": "会员信息不存在，请检查参数是否正确"</msg>
+<msg timestamp="20200728 11:41:19.101" level="INFO">}</msg>
+<status status="PASS" starttime="20200728 11:41:19.059" endtime="20200728 11:41:19.111"></status>
 </kw>
 <kw name="Fapi Data To Object" library="FATL.FapiKeywords">
 <doc>Convert Fapi response content to python object</doc>
 <assign>
 <var>${data}</var>
 </assign>
-<msg timestamp="20200724 16:55:43.419" level="INFO">${data} = &lt;FATL.Json2Object.Dict2Object object at 0x03CC9610&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:43.418" endtime="20200724 16:55:43.419"></status>
+<msg timestamp="20200728 11:41:19.111" level="INFO">${data} = 会员信息不存在，请检查参数是否正确</msg>
+<status status="PASS" starttime="20200728 11:41:19.111" endtime="20200728 11:41:19.111"></status>
 </kw>
 <kw name="Set Suite Variable" library="BuiltIn">
 <doc>Makes a variable available everywhere within the scope of the current suite.</doc>
@@ -965,55 +2579,114 @@ given `alias`</doc>
 <arg>${response_data}</arg>
 <arg>${data}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:43.419" level="INFO">${response_data} = &lt;FATL.Json2Object.Dict2Object object at 0x03CC9610&gt;</msg>
-<status status="PASS" starttime="20200724 16:55:43.419" endtime="20200724 16:55:43.419"></status>
+<msg timestamp="20200728 11:41:19.111" level="INFO">${response_data} = 会员信息不存在，请检查参数是否正确</msg>
+<status status="PASS" starttime="20200728 11:41:19.111" endtime="20200728 11:41:19.111"></status>
 </kw>
-<status status="PASS" starttime="20200724 16:55:42.626" endtime="20200724 16:55:43.419"></status>
+<status status="PASS" starttime="20200728 11:41:19.049" endtime="20200728 11:41:19.111"></status>
 </kw>
-<kw name="Fapi Status Should Be" library="FATL.FapiKeywords">
-<doc>Fapi response status code should be equal to the `expectedCode`</doc>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
 <arguments>
-<arg>${STATUS}</arg>
+<arg>${response_data}</arg>
+<arg>${RESULT}</arg>
 </arguments>
-<msg timestamp="20200724 16:55:43.420" level="INFO">Actual status code is: -1</msg>
-<status status="PASS" starttime="20200724 16:55:43.420" endtime="20200724 16:55:43.420"></status>
+<status status="PASS" starttime="20200728 11:41:19.111" endtime="20200728 11:41:19.111"></status>
 </kw>
 <tags>
-<tag>作者：张鹏</tag>
-<tag>冒烟集-新福建App</tag>
-<tag>直播/客户端直播报道查看（赖厚泽）</tag>
+<tag>作者：江宝敏</tag>
+<tag>冒烟-新福建App</tag>
+<tag>获取会员当前积分/积分管理（孙安）</tag>
 </tags>
-<status status="PASS" starttime="20200724 16:55:42.623" endtime="20200724 16:55:43.421" critical="yes"></status>
+<status status="PASS" starttime="20200728 11:41:19.049" endtime="20200728 11:41:19.111" critical="yes"></status>
 </test>
 <kw name="Fapi Delete All Sessions" library="FATL.FapiKeywords" type="teardown">
 <doc>Removes all the session objects</doc>
-<msg timestamp="20200724 16:55:43.422" level="INFO">Delete All Sessions</msg>
-<status status="PASS" starttime="20200724 16:55:43.422" endtime="20200724 16:55:43.423"></status>
+<msg timestamp="20200728 11:41:19.111" level="INFO">Delete All Sessions</msg>
+<status status="PASS" starttime="20200728 11:41:19.111" endtime="20200728 11:41:19.111"></status>
 </kw>
-<doc>客户端直播列表查看</doc>
-<status status="PASS" starttime="20200724 16:55:41.057" endtime="20200724 16:55:43.423"></status>
+<doc>获取会员当前积分</doc>
+<status status="PASS" starttime="20200728 11:41:17.962" endtime="20200728 11:41:19.111"></status>
 </suite>
-<status status="PASS" starttime="20200724 16:55:30.640" endtime="20200724 16:55:43.426"></status>
+<status status="FAIL" starttime="20200728 11:41:05.548" endtime="20200728 11:41:19.121"></status>
 </suite>
 <statistics>
 <total>
-<stat pass="5" fail="0">Critical Tests</stat>
-<stat pass="5" fail="0">All Tests</stat>
+<stat pass="12" fail="5">Critical Tests</stat>
+<stat pass="12" fail="5">All Tests</stat>
 </total>
 <tag>
-<stat pass="5" fail="0">作者：张鹏</stat>
-<stat pass="5" fail="0">冒烟集-新福建App</stat>
-<stat pass="4" fail="0">直播/客户端直播报道查看（赖厚泽）</stat>
-<stat pass="1" fail="0">直播/直播预告（赖厚泽）</stat>
+<stat pass="11" fail="1">作者：江宝敏</stat>
+<stat pass="1" fail="0">作者：温怡春</stat>
+<stat pass="0" fail="4">作者：黄羽</stat>
+<stat pass="0" fail="4">冒烟-新福建</stat>
+<stat pass="11" fail="1">冒烟-新福建App</stat>
+<stat pass="1" fail="0">冒烟集-新福建APP</stat>
+<stat pass="0" fail="4">积分扣减/积分管理（孙安）</stat>
+<stat pass="8" fail="1">积分行为入库/积分管理（孙安）</stat>
+<stat pass="1" fail="0">积分行为类型查看/积分管理（孙安）</stat>
+<stat pass="3" fail="0">获取会员当前积分/积分管理（孙安）</stat>
 </tag>
 <suite>
-<stat pass="5" fail="0" id="s1" name="App Live">App Live</stat>
-<stat pass="2" fail="0" id="s1-s1" name="GetLiveArticle">App Live.GetLiveArticle</stat>
-<stat pass="1" fail="0" id="s1-s2" name="LiveComing">App Live.LiveComing</stat>
-<stat pass="2" fail="0" id="s1-s3" name="LiveView">App Live.LiveView</stat>
+<stat pass="12" fail="5" id="s1" name="APP ScoreManager">APP ScoreManager</stat>
+<stat pass="0" fail="4" id="s1-s1" name="Convert">APP ScoreManager.Convert</stat>
+<stat pass="8" fail="1" id="s1-s2" name="Event1">APP ScoreManager.Event1</stat>
+<stat pass="1" fail="0" id="s1-s3" name="EventTypes">APP ScoreManager.EventTypes</stat>
+<stat pass="3" fail="0" id="s1-s4" name="Score">APP ScoreManager.Score</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20200724 16:55:30.690" level="ERROR">Error in file 'D:\jiangbm\XFJ\API\App_Live\LiveCommon.robot' on line 4: Setting 'Force Tags' is not allowed in resource file.</msg>
+<msg timestamp="20200728 11:41:05.602" level="ERROR">Error in file 'D:\jiangbm\XFJ\API\APP_ScoreManager\ScoreManagerCommon.robot' on line 11: Setting 'Force Tags' is not allowed in resource file.</msg>
+<msg timestamp="20200728 11:41:07.076" level="ERROR">Error in file 'D:\jiangbm\XFJ\API\App_Sso\Random_Time.robot' on line 2: Importing test library 'MyLib' failed: ModuleNotFoundError: No module named 'MyLib'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  D:\jiangbm\pycharm\API\Scripts\robot.exe
+  D:\jiangbm\XFJ\API
+  D:\Python38-32\python38.zip
+  D:\Python38-32\DLLs
+  D:\Python38-32\lib
+  D:\Python38-32
+  d:\jiangbm\pycharm\api
+  d:\jiangbm\pycharm\api\lib\site-packages
+  D:\Python38-32\lib\site-packages</msg>
+<msg timestamp="20200728 11:41:08.214" level="ERROR">Error in file 'D:\jiangbm\XFJ\API\App_Sso\Random_Time.robot' on line 2: Importing test library 'MyLib' failed: ModuleNotFoundError: No module named 'MyLib'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  D:\jiangbm\pycharm\API\Scripts\robot.exe
+  D:\jiangbm\XFJ\API
+  D:\Python38-32\python38.zip
+  D:\Python38-32\DLLs
+  D:\Python38-32\lib
+  D:\Python38-32
+  d:\jiangbm\pycharm\api
+  d:\jiangbm\pycharm\api\lib\site-packages
+  D:\Python38-32\lib\site-packages</msg>
+<msg timestamp="20200728 11:41:16.639" level="ERROR">Error in file 'D:\jiangbm\XFJ\API\App_Sso\Random_Time.robot' on line 2: Importing test library 'MyLib' failed: ModuleNotFoundError: No module named 'MyLib'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  D:\jiangbm\pycharm\API\Scripts\robot.exe
+  D:\jiangbm\XFJ\API
+  D:\Python38-32\python38.zip
+  D:\Python38-32\DLLs
+  D:\Python38-32\lib
+  D:\Python38-32
+  d:\jiangbm\pycharm\api
+  d:\jiangbm\pycharm\api\lib\site-packages
+  D:\Python38-32\lib\site-packages</msg>
+<msg timestamp="20200728 11:41:17.989" level="ERROR">Error in file 'D:\jiangbm\XFJ\API\App_Sso\Random_Time.robot' on line 2: Importing test library 'MyLib' failed: ModuleNotFoundError: No module named 'MyLib'
+Traceback (most recent call last):
+  None
+PYTHONPATH:
+  D:\jiangbm\pycharm\API\Scripts\robot.exe
+  D:\jiangbm\XFJ\API
+  D:\Python38-32\python38.zip
+  D:\Python38-32\DLLs
+  D:\Python38-32\lib
+  D:\Python38-32
+  d:\jiangbm\pycharm\api
+  d:\jiangbm\pycharm\api\lib\site-packages
+  D:\Python38-32\lib\site-packages</msg>
 </errors>
 </robot>

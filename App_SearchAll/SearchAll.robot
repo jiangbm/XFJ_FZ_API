@@ -7,7 +7,7 @@ Force Tags                              冒烟集-新福建APP     搜索接口/
 ...                                     作者：黄羽
 
 *** Variables ***
-${COLUMNID}                             1                   #获取首页所有栏目信息
+${COLUMNID}                             1000                #获取首页所有栏目信息
 ${COLUMNID1}                            6666                #栏目不存在
 ${KEY}                                  测试                #正常关键字
 ${KEY1}                                 null                #非法关键字

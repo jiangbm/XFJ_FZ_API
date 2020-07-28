@@ -45,16 +45,8 @@ Event1
 Score
     [Documentation]                     获取会员当前积分
     [Arguments]                         ${id}
-    ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     id                  ${id}
     ...                                 curVersions         ${CURVERSIONS}
-    Fapi Headers Set
-    ...                                 authtoken           ${token}
-    ...                                 time                ${time}
-    ...                                 sign                ${sign}
     Fapi Get                            ${APPIF_ALIAS}      ${SCORE_URI}
     ${data}                             Fapi Data To Object
     Set Suite Variable                  ${response_data}    ${data}

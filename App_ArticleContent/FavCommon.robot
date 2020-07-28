@@ -25,10 +25,6 @@ Article Fav Api
     ...                                 ${userid}=${USERID}
     ...                                 ${channel}=${CHANNEL}
     ...                                 ${imgurl}=${IMGURL}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     articleID           ${articleid}
     ...                                 siteID              ${siteid}
     ...                                 type                ${type}
@@ -36,9 +32,7 @@ Article Fav Api
     ...                                 channel             ${channel}
     ...                                 imgUrl              ${imgurl}
     ...                                 curVersions         ${CURVERSIONS}
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
+
     Fapi Get                            ${APPIF_ALIAS}      ${FAV_URI}
 #    ${data} =               Fapi Data To Object
 #    Set Suite Variable      ${app_data}                 ${data}
@@ -52,13 +46,6 @@ Article FavCancel Api
     ...                                 ${userid}=${USERID}
     ...                                 ${cancel}=${CANCEL}
     ...                                 ${imgurl}=${IMGURL}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     userID              ${userid}
     ...                                 siteID              ${siteid}
     ...                                 type                ${type}
@@ -76,13 +63,6 @@ Article HasFav Api
     ...                                 ${userid}=${USERID}
     ...                                 ${siteid}=${SITEID}
     ...                                 ${type}=${TYPE}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     userID              ${userid}
     ...                                 articleID           ${articleid}
     ...                                 siteID              ${siteid}

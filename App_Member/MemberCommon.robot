@@ -37,15 +37,8 @@ Upload File
 Get Portrait Api
     [Documentation]                     查看会员头像
     [Arguments]                         ${uid}
-    ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     uid                 ${uid}
     ...                                 curVersions         ${CURVERSIONS}
-    Fapi Headers Set                    time                ${time}
-    ...                                 authtoken           ${token}
-    ...                                 sign                ${sign}
     Fapi Get                            ${APPIF_ALIAS}      ${GETPORTRAIT_URI}
 
 

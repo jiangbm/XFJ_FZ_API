@@ -27,6 +27,13 @@ ${CURVERSIONS}                          1
 *** Keywords ***
 Create Session Common
     Fapi Create Session                 ${APPIF_ALIAS}      ${APPIF_URL}
+    ${secretinfo} =                     sign
+    ${token} =                          Set Variable        ${secretinfo}[authtoken]
+    ${time} =                           Set Variable        ${secretinfo}[time]
+    ${sign} =                           Set Variable        ${secretinfo}[sign]
+    Fapi Headers Set                    time                ${time}
+    ...                                 authtoken           ${token}
+    ...                                 sign                ${sign}
 #    ###用robotframework的requestlibrary编写
 #    create session                      ${APPIF_ALIAS}      ${APPIF_URL}
 

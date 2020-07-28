@@ -9,7 +9,7 @@ Force Tags                              冒烟集-新福建APP     热门栏目�
 *** Variables ***
 ${SITEID}                               1                   #正确的值
 ${SITEID1}                              0                   #错误的值
-${NAME}                                 头条
+${NAME}                                 教育
 ${RESULT}                               0
 
 *** Keywords ***

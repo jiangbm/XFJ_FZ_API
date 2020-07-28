@@ -9,7 +9,7 @@ Force Tags                              冒烟集-新福建APP     热词搜索�
 *** Variables ***
 ${SITEID}                               1
 ${SITEID1}                              0
-${WORDS}                                全国两会
+${WORDS}                                闽宁协作
 ${RESULT}                               0
 
 *** Keywords ***

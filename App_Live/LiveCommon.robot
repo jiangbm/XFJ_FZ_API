@@ -23,13 +23,6 @@ ${ID}                                   1084
 Live Coming
     [Documentation]                     直播预告
     [Arguments]                         ${siteid}=${SITEID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteID              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}
     Fapi Get                            ${APPIF_ALIAS}      ${LIVECOMING_URI}
@@ -42,13 +35,6 @@ Live
 Live View
     [Documentation]                     客户端直播列表查看
     [Arguments]                         ${id}=${ID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     id                  ${id}
     ...                                 curVersions         ${CURVERSIONS}
     Fapi Get                            ${APPIF_ALIAS}      ${LIVEVIEW_URI}
@@ -63,13 +49,6 @@ Get Live Articles
     [Documentation]                     直播稿件列表
     [Arguments]                         ${columnid}
     ...                                 ${siteid}=${SITEID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     columnId            ${columnid}
     ...                                 siteId              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}

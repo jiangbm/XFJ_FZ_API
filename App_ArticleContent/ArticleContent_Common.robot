@@ -19,13 +19,6 @@ Get Article Content
     [Documentation]                     查看稿件详情接口
     [Arguments]                         ${articleid}
     ...                                 ${siteid}=${SITEID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     articleId           ${articleid}
     ...                                 siteId              1
     ...                                 curVersions         ${CURVERSIONS}
@@ -40,20 +33,12 @@ Get Event
     ...                                 ${type}=${TYPE}
     ...                                 ${eventtype}=${EVENTTYPE}
     ...                                 ${channel}=${CHANNEL}
-    ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
     Fapi Params Set                     id                  ${id}
     ...                                 siteID              ${siteid}
     ...                                 type                ${type}
     ...                                 eventType           ${eventtype}
     ...                                 channel             ${channel}
     ...                                 curVersions         ${CURVERSIONS}
-    Fapi Headers Set
-    ...                                 authtoken           ${token}
-    ...                                 time                ${time}
-    ...                                 sign                ${sign}
     Fapi Get                            ${APPIF_ALIAS}      ${EVENT_URI}
     ${data}                             Fapi Data To Object
     Set Suite Variable                  ${response_data}    ${data}

@@ -17,13 +17,6 @@ Leader Cats
     [Documentation]                     人物分类列表
     [Arguments]                         ${catid}
     ...                                 ${siteid}=${SITEID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteId              ${siteid}
     ...                                 catID               ${catid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -37,13 +30,6 @@ Leader View
     ...                                 ${start}=${0}
     ...                                 ${count}=${20}
     ...                                 ${siteid}=${SITEID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     start               ${start}
     ...                                 count               ${count}
     ...                                 siteId              ${siteid}
@@ -57,13 +43,6 @@ Leader
     [Documentation]                     人物详情
     [Arguments]                         ${id}
     ...                                 ${siteid}=${SITEID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     id                  ${id}
     ...                                 siteId              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -75,13 +54,6 @@ Region Leader View
     [Documentation]                     地区人物列表
     [Arguments]                         ${regionid}
     ...                                 ${siteid}=${SITEID}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     regionID            ${regionid}
     ...                                 siteId              ${siteid}
     ...                                 curVersions         ${CURVERSIONS}
@@ -94,13 +66,6 @@ Cat Leader View
     [Arguments]                         ${catid}
     ...                                 ${siteid}=${SITEID}
     ...                                 ${page}=${0}
-    ${secretinfo} =                     sign
-    ${authtoken} =                      Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    sign                ${sign}
-    ...                                 time                ${time}
-    ...                                 authtoken           ${authtoken}
     Fapi Params Set                     siteId              ${siteid}
     ...                                 catID               ${catid}
     ...                                 page                ${page}
