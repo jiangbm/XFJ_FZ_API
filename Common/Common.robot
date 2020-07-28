@@ -28,16 +28,11 @@ ${CURVERSIONS}                          1
 Create Session Common
     Fapi Create Session                 ${APPIF_ALIAS}      ${APPIF_URL}
     ${secretinfo} =                     sign
-    ${token} =                          Set Variable        ${secretinfo}[authtoken]
-    ${time} =                           Set Variable        ${secretinfo}[time]
-    ${sign} =                           Set Variable        ${secretinfo}[sign]
-    Fapi Headers Set                    time                ${time}
-    ...                                 authtoken           ${token}
-    ...                                 sign                ${sign}
-#    ###用robotframework的requestlibrary编写
-#    create session                      ${APPIF_ALIAS}      ${APPIF_URL}
+    Fapi Headers Set                    time                ${secretinfo}[time]
+    ...                                 authtoken           ${secretinfo}[authtoken]
+    ...                                 sign                ${secretinfo}[sign]
+
 
 Create Sso Session Common
     Fapi Create Session                 ${SSO_ALIAS}        ${SSO_URL}
-#    ###用robotframework的requestlibrary编写
-#    create session                      ${SSO_ALIAS}        ${SSO_URL}
+

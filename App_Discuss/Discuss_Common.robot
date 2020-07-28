@@ -1,8 +1,6 @@
 *** Settings ***
 Documentation                           该文档是评论接口用例文档
 Resource                                ../Common/Common.robot
-Library                                 ../Secret/XFJ_Des.py
-Library                                 ../Secret/authen.py
 #Force Tags                              冒烟集-新福建APP     评论相关接口（许雁良）
 #...                                     作者：温怡春
 

@@ -1,8 +1,6 @@
 *** Settings ***
 Documentation                           该文档是获取稿件详情模块接口用例文档
 Resource                                ../Common/Common.robot
-Library                                 ../Secret/XFJ_Des.py
-Library                                 ../Secret/authen.py
 Force Tags                              冒烟集-新福建APP     稿件详情相关接口（赖厚泽）
 ...                                     作者：张鹏
 
