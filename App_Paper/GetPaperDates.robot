@@ -9,7 +9,7 @@ Force Tags                              冒烟集-新福建APP     数字报（�
 *** Variables ***
 ${PAPERID}                              1
 ${PAPERID0}                             10  
-${VERSION}                              1584806400000
+${VERSION}                              1595865600000
 ${VERSION0}                             0
 ${DATES0}                               []
 ${COUNT}                                5
@@ -21,9 +21,6 @@ ${COUNT}                                5
     Fapi Status Should Be Succeed
     Fapi Request Should Be Succeed
     Should Be Equal As Strings          ${response_data.version}                ${version}
-    ${Lenth}                            Get Length                              ${response_data.dates}
-    Log                                 ${Lenth}
-    Should Be True                      ${Lenth}<=${count}        
 
 报纸期刊列表下无数据，返回数据为空
     Get Paper Dates                     ${paperid0}

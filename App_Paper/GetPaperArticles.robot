@@ -7,8 +7,8 @@ Force Tags                              冒烟集-新福建APP     数字报（�
 ...                                     作者：温怡春
 
 *** Variables ***
-${LAYOUTID}                             16 
-${LAYOUTID0}                            100
+${LAYOUTID}                             3745
+${LAYOUTID0}                            10086
 ${VERSION}                              1584806400000
 ${VERSION0}                             0
 ${RESULT0}                              []

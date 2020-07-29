@@ -6,9 +6,9 @@ Force Tags                              新福建                 邀请码接�
 Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 *** Variables ***
-${UID}                                  257
+${UID}                                  4100083
 ${UID0}                                 9
-${CODE}                                 8628775
+${CODE}                                 1013289
 ${CODE0}                                0
 ${MSG}                                  系统中存在,获取邀请码成功
 ${MSG0}                                 系统中不存在uid:${uid0}的会员

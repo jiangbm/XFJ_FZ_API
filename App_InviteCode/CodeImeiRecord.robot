@@ -7,17 +7,17 @@ Force Tags                              新福建              邀请码接口�
 Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 *** Variables ***
-${CODE0}                                8628775             #可用的邀请码
+${CODE0}                                4692497             #可用的邀请码
 ${CODE1}                                8888888             #无效的邀请码
-${UID}                                  123                 #已被邀请过的会员
+${UID}                                  4100032             #已被邀请过的会员
 ${IMEI}                                 429A9EC0-58DE-41D6-B79A-4E073350FA38
 ${RESULT0}                              1001
 ${RESULT1}                              1002
 ${RESULT2}                              1003
-${MSG0}                                 该会员已被喵了个咪邀请过了
+${MSG0}                                 该会员已被喵了个咪_420邀请过了
 ${MSG1}                                 该设备成功添加邀请码使用记录
 ${MSG2}                                 邀请码不存在
-${MSG3}                                 该设备已被喵了个咪邀请过了
+${MSG3}                                 该设备已被喵了个咪_420邀请过了
 
 
 *** Keywords ***

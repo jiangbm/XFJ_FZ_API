@@ -30,8 +30,8 @@ def upload(userid):
     secretinfo = authen.sign()
     headers = secretinfo
     file_payload = {
-        "file1": ("filename1.jpg", open("App_Member\\10.jpg", "rb"),"multipart/form-data"),
-        "file4": ("filename2.mp3", open(u"App_Member\\让我们荡起双桨.mp3", "rb"), "multipart/form-data"),
+        "file1": ("filename1.jpg", open("/var/lib/jenkins/workspace/新福建（翔宇）接口自动化脚本定时构建/App_Member/10.jpg", "rb"),"multipart/form-data"),
+        "file4": ("filename2.mp3", open(u"/var/lib/jenkins/workspace/新福建（翔宇）接口自动化脚本定时构建/App_Member/让我们荡起双桨.mp3", "rb"), "multipart/form-data"),
     }
     m=MultipartEncoder(file_payload)
     headers["Content-Type"]=m.content_type

@@ -16,9 +16,8 @@ ${SEARCHALLPAPER_URI}                   /searchAllPaper
 Get Paper Article
     [Documentation]                     查看数字报稿件详情
     [Arguments]                         ${id}
-    ...                                 ${SITEID}
     Fapi Params Set                     id                  ${id}
-    ...                                 siteID              ${SITEID}
+    ...                                 siteID              1
     ...                                 curVersions         ${CURVERSIONS}
     Fapi Get                            ${APPIF_ALIAS}      ${GETPAPERARTICLE_URI}
     ${data}                             Fapi Data To Object
@@ -72,7 +71,7 @@ Search All Paper
     [Documentation]                     检索报纸稿件
     [Arguments]                         ${key}
     Fapi Params Set                     key                 ${key}
-    ...                                 count               20
+    ...                                 count               5
     ...                                 start               0
     ...                                 siteID              1
     ...                                 curVersions         ${CURVERSIONS}

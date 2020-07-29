@@ -7,8 +7,8 @@ Force Tags                              冒烟集-新福建APP     删除我的�
 ...                                     作者：温怡春
 
 *** Variables ***
-${USERID}                               152
-${FILEID0}                              146
+${USERID}                               3554210
+${FILEID0}                              3036028
 ${FILEID1}                              123456
 ${RESULT}                               0
 ${RESULT0}                              1
@@ -16,23 +16,24 @@ ${RESULT1}                              2
 ${MESSAGE}                              删除成功
 ${MESSAGE0}                             只能删除自己的评论
 ${MESSAGE1}                             评论不存在
-${ROOTID}                               3867
+${ROOTID}                               633747
 ${CONTENT}                              评论内容提交
+${PAGE}                                 0
 
 *** Test Cases ***
 提交一条评论，用于删除评论测试
     Post Discuss                        ${rootid}
     ...                                 ${content}
     Fapi Request Should Be Succeed
-    Sleep                               3
+    Sleep                               3s
     Discuss View                        ${rootid}           #从评论列表获取评论ID
-    ...                                 ${0}
+    ...                                 ${page}
     Fapi Request Should Be Succeed
     Set Suite Variable                  ${DiscussId}        ${response_data.list[0].id}
     Log                                 ${DiscussId}
 
 删除我的评论，提示删除成功
-    Sleep                               3
+    Sleep                               3s
     Delete My Discuss                   ${DiscussId}
     Fapi Status Should Be Succeed
     Should Be Equal As Strings          ${response_data.status}                 ${result}

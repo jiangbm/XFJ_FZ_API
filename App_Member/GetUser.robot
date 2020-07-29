@@ -6,11 +6,10 @@ Force Tags                              新福建                 会员信息�
 Suite Setup                             Create Session Common
 Suite Teardown                          Fapi Delete All Sessions
 *** Variables ***
-${USERID}                               257
+${USERID}                               4100083
 ${USERID0}                              192
 ${RESULT0}                              -1
-${DATA}                                 true   
-${DATA2}                                喵了个咪              
+${DATA}                                 false
 
 *** Keywords ***
 
